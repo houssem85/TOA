@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.houssem85.toa.ui.theme
 
 import androidx.compose.ui.graphics.Color
