@@ -19,3 +19,6 @@ jobs:
 
       - name: Run Tests
         run: ./gradlew test
+
+      - name: Static Analysis
+        run: ./gradlew ktlintCheck
