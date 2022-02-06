@@ -1,15 +1,14 @@
 package com.houssem85.toa.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults.buttonColors
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
@@ -19,22 +18,17 @@ import com.houssem85.toa.ui.theme.ButtonShape
 import com.houssem85.toa.ui.theme.TOATheme
 
 @Composable
-fun PrimaryButton(
+fun SecondaryButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    backgroundColor : Color = MaterialTheme.colors.primary
+    modifier: Modifier = Modifier
 ) {
-    val buttonColors = buttonColors(
-        backgroundColor = backgroundColor
-    )
-    Button(
+    TextButton(
         onClick = onClick,
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth(),
-        colors = buttonColors,
-        shape = ButtonShape,
+        shape = ButtonShape
     ) {
         Text(
             text = text.toUpperCase(Locale.current)
@@ -52,8 +46,10 @@ fun PrimaryButton(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun PrimaryButtonPreview() {
+private fun SecondaryButtonPreview() {
     TOATheme {
-        PrimaryButton("hello", {})
+        Surface {
+            SecondaryButton("hello", {})
+        }
     }
 }
