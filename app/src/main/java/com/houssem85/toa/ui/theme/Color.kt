@@ -21,6 +21,6 @@ val lightColorPalette = lightColors(
     onSecondary = Color.White,
     background = BackgroundBlue,
     onBackground = OnBackgroundBlack,
-    surface = Color.White ,
+    surface = Color.White,
     onSurface = PrimaryBlue
 )
