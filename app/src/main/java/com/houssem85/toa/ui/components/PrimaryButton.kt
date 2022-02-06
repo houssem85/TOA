@@ -3,7 +3,6 @@ package com.houssem85.toa.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.MaterialTheme
@@ -16,6 +15,7 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import com.houssem85.toa.R
+import com.houssem85.toa.ui.theme.ButtonShape
 import com.houssem85.toa.ui.theme.TOATheme
 
 @Composable
@@ -34,7 +34,7 @@ fun PrimaryButton(
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxHeight(),
         colors = buttonColors,
-        shape = RoundedCornerShape(50),
+        shape = ButtonShape,
     ) {
         Text(
             text = text.toUpperCase(Locale.current)
@@ -54,6 +54,6 @@ fun PrimaryButton(
 @Suppress("UnusedPrivateMember")
 private fun PrimaryButtonPreview() {
     TOATheme {
-        PrimaryButton("hello in jetpak", {})
+        PrimaryButton("hello", {})
     }
 }

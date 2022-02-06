@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.houssem85.toa.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,3 +10,5 @@ val Shapes = Shapes(
     medium = RoundedCornerShape(4.dp),
     large = RoundedCornerShape(0.dp)
 )
+
+val ButtonShape = RoundedCornerShape(50)
