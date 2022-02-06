@@ -2,7 +2,11 @@ package com.houssem85.toa.ui.login
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,23 +48,19 @@ fun LoginContent(
             )
             Spacer(modifier = Modifier.weight(1F))
             TOATextField(text = viewState.userName, onTextChanged = {
-
             }, labelText = stringResource(R.string.username))
             VerticalSpacer(height = 12.dp)
             TOATextField(text = viewState.password, onTextChanged = {
-
             }, labelText = stringResource(R.string.password))
             VerticalSpacer(height = 48.dp)
             PrimaryButton(
                 text = stringResource(R.string.log_in),
                 onClick = {
-
                 },
             )
             SecondaryButton(
                 text = stringResource(R.string.sign_up),
                 onClick = {
-
                 },
             )
         }
