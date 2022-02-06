@@ -18,12 +18,20 @@ import com.houssem85.toa.R
 import com.houssem85.toa.ui.theme.ButtonShape
 import com.houssem85.toa.ui.theme.TOATheme
 
+/**
+ * This is a custom [Button] that provides the shape and styling expected in the
+ * TOA application
+ * @param[text] Text inside the button
+ * @param[onClick] A callback invoked when the user clicks the button
+ * @param[modifier] An optional [Modifier] to configure the composable
+ * @param[backgroundColor] The color of the button in enabled state
+ **/
 @Composable
 fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor : Color = MaterialTheme.colors.primary
+    backgroundColor: Color = MaterialTheme.colors.primary
 ) {
     val buttonColors = buttonColors(
         backgroundColor = backgroundColor

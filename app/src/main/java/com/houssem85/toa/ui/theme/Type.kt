@@ -11,6 +11,7 @@ private val UrbanistExtraBold = FontFamily(Font(R.font.urbanist_extrabold))
 private val UrbanistSemiBold = FontFamily(Font(R.font.urbanist_semibold))
 private val urbanistBold = FontFamily(Font(R.font.urbanist_bold))
 private val UrbanistMedium = FontFamily(Font(R.font.urbanist_medium))
+private val UrbanistRegular = FontFamily(Font(R.font.urbanist_regular))
 private val UrbanistLight = FontFamily(Font(R.font.urbanist_light))
 
 val Typography = Typography(
@@ -37,5 +38,9 @@ val Typography = Typography(
     button = TextStyle(
         fontFamily = urbanistBold,
         fontSize = 13.sp
+    ),
+    caption = TextStyle(
+        fontFamily = UrbanistRegular,
+        fontSize = 12.sp
     )
 )

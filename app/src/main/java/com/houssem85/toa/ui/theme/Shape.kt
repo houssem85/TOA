@@ -12,3 +12,4 @@ val Shapes = Shapes(
 )
 
 val ButtonShape = RoundedCornerShape(50)
+val TextFieldShape = RoundedCornerShape(50)

@@ -1,9 +1,9 @@
 package com.houssem85.toa.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -17,6 +17,13 @@ import com.houssem85.toa.R
 import com.houssem85.toa.ui.theme.ButtonShape
 import com.houssem85.toa.ui.theme.TOATheme
 
+/**
+ * This is a custom [Button] that provides the shape and styling expected in the
+ * TOA application
+ * @param[text] Text inside the button
+ * @param[onClick] A callback invoked when the user clicks the button
+ * @param[modifier] An optional [Modifier] to configure the composable
+ **/
 @Composable
 fun SecondaryButton(
     text: String,
