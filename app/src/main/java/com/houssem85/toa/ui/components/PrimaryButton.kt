@@ -54,6 +54,6 @@ fun PrimaryButton(
 @Suppress("UnusedPrivateMember")
 private fun PrimaryButtonPreview() {
     TOATheme {
-        PrimaryButton("hello in jetpak",{})
+        PrimaryButton("hello in jetpak", {})
     }
 }
