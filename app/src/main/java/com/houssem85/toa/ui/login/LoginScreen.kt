@@ -79,16 +79,20 @@ private fun LoginButton(onClick: () -> Unit) {
 
 @Composable
 private fun PasswordInput(text: String, onTextChanged: (String) -> Unit) {
-    TOATextField(text = text,
+    TOATextField(
+        text = text,
         onTextChanged = onTextChanged,
-        labelText = stringResource(R.string.password))
+        labelText = stringResource(R.string.password)
+    )
 }
 
 @Composable
 private fun UsernameInput(text: String, onTextChanged: (String) -> Unit) {
-    TOATextField(text = text,
+    TOATextField(
+        text = text,
         onTextChanged = onTextChanged,
-        labelText = stringResource(R.string.username))
+        labelText = stringResource(R.string.username)
+    )
 }
 
 @Composable
@@ -114,13 +118,9 @@ private fun LoginContentPreview() {
     TOATheme {
         val viewState = LoginViewState("", "")
         LoginContent(viewState, {
-
         }, {
-
         }, {
-
         }, {
-
         })
     }
 }
