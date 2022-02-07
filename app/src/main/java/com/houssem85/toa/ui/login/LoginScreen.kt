@@ -28,10 +28,18 @@ private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 /**
  * This composable maintains the entire screen for handling user login.
  * @param[viewState] The current state of the screen to render.
+ * @param[onUserNameChanged] A callback that invoked when the user change text in [UsernameInput]
+ * @param[onPasswordChanged] A callback that invoked when the user change text in [PasswordInput]
+ * @param[onLoginClicked] A callback that invoked when the user clicks [LoginButton]
+ * @param[onSignUpClicked] A callback that invoked when the user clicks [SignUpButton]
  * */
 @Composable
 fun LoginContent(
     viewState: LoginViewState,
+    onUserNameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onLoginClicked: () -> Unit,
+    onSignUpClicked: () -> Unit,
 ) {
     Surface {
         Column(
@@ -41,30 +49,55 @@ fun LoginContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.weight(1F))
-            Image(
-                painter = painterResource(id = R.drawable.ic_toa_checkmark),
-                contentDescription = stringResource(R.string.app_logo_content_description),
-                modifier = Modifier.fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE)
-            )
+            AppLogo()
             Spacer(modifier = Modifier.weight(1F))
-            TOATextField(text = viewState.userName, onTextChanged = {
-            }, labelText = stringResource(R.string.username))
+            UsernameInput(viewState.userName, onTextChanged = onUserNameChanged)
             VerticalSpacer(height = 12.dp)
-            TOATextField(text = viewState.password, onTextChanged = {
-            }, labelText = stringResource(R.string.password))
+            PasswordInput(viewState.password, onTextChanged = onPasswordChanged)
             VerticalSpacer(height = 48.dp)
-            PrimaryButton(
-                text = stringResource(R.string.log_in),
-                onClick = {
-                },
-            )
-            SecondaryButton(
-                text = stringResource(R.string.sign_up),
-                onClick = {
-                },
-            )
+            LoginButton(onClick = onLoginClicked)
+            SignUpButton(onClick = onSignUpClicked)
         }
     }
+}
+
+@Composable
+private fun SignUpButton(onClick: () -> Unit) {
+    SecondaryButton(
+        text = stringResource(R.string.sign_up),
+        onClick = onClick,
+    )
+}
+
+@Composable
+private fun LoginButton(onClick: () -> Unit) {
+    PrimaryButton(
+        text = stringResource(R.string.log_in),
+        onClick = onClick,
+    )
+}
+
+@Composable
+private fun PasswordInput(text: String, onTextChanged: (String) -> Unit) {
+    TOATextField(text = text,
+        onTextChanged = onTextChanged,
+        labelText = stringResource(R.string.password))
+}
+
+@Composable
+private fun UsernameInput(text: String, onTextChanged: (String) -> Unit) {
+    TOATextField(text = text,
+        onTextChanged = onTextChanged,
+        labelText = stringResource(R.string.username))
+}
+
+@Composable
+private fun AppLogo() {
+    Image(
+        painter = painterResource(id = R.drawable.ic_toa_checkmark),
+        contentDescription = stringResource(R.string.app_logo_content_description),
+        modifier = Modifier.fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE)
+    )
 }
 
 @Preview(
@@ -80,6 +113,14 @@ fun LoginContent(
 private fun LoginContentPreview() {
     TOATheme {
         val viewState = LoginViewState("", "")
-        LoginContent(viewState)
+        LoginContent(viewState, {
+
+        }, {
+
+        }, {
+
+        }, {
+
+        })
     }
 }
