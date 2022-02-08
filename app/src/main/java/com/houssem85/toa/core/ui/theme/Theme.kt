@@ -1,4 +1,4 @@
-package com.houssem85.toa.ui.theme
+package com.houssem85.toa.core.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable

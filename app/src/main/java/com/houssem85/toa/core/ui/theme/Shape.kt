@@ -1,5 +1,5 @@
 @file:Suppress("MagicNumber")
-package com.houssem85.toa.ui.theme
+package com.houssem85.toa.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

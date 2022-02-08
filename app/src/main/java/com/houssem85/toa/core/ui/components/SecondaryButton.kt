@@ -1,12 +1,13 @@
-package com.houssem85.toa.ui.components
+package com.houssem85.toa.core.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.ButtonDefaults.textButtonColors
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,34 +16,33 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import com.houssem85.toa.R
-import com.houssem85.toa.ui.theme.ButtonShape
-import com.houssem85.toa.ui.theme.TOATheme
+import com.houssem85.toa.core.ui.theme.ButtonShape
+import com.houssem85.toa.core.ui.theme.TOATheme
 
 /**
- * This is a custom [Button] that provides the shape and styling expected in the
+ * This is a custom [TextButton] that provides the shape and styling expected in the
  * TOA application
  * @param[text] Text inside the button
  * @param[onClick] A callback invoked when the user clicks the button
  * @param[modifier] An optional [Modifier] to configure the composable
- * @param[backgroundColor] The color of the button in enabled state
  **/
 @Composable
-fun PrimaryButton(
+fun SecondaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primary
+    contentColor: Color = MaterialTheme.colors.primary
 ) {
-    val buttonColors = buttonColors(
-        backgroundColor = backgroundColor
+    val colors = textButtonColors(
+        contentColor = contentColor
     )
-    Button(
+    TextButton(
         onClick = onClick,
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth(),
-        colors = buttonColors,
         shape = ButtonShape,
+        colors = colors
     ) {
         Text(
             text = text.toUpperCase(Locale.current)
@@ -60,8 +60,10 @@ fun PrimaryButton(
 )
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun PrimaryButtonPreview() {
+private fun SecondaryButtonPreview() {
     TOATheme {
-        PrimaryButton("hello", {})
+        Surface {
+            SecondaryButton("hello", {})
+        }
     }
 }

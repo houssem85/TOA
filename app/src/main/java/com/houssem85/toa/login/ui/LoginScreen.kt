@@ -1,4 +1,4 @@
-package com.houssem85.toa.ui.login
+package com.houssem85.toa.login.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -17,18 +17,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.R
-import com.houssem85.toa.ui.components.PrimaryButton
-import com.houssem85.toa.ui.components.SecondaryButton
-import com.houssem85.toa.ui.components.TOATextField
-import com.houssem85.toa.ui.core.VerticalSpacer
-import com.houssem85.toa.ui.theme.TOATheme
+import com.houssem85.toa.core.ui.components.PrimaryButton
+import com.houssem85.toa.core.ui.components.SecondaryButton
+import com.houssem85.toa.core.ui.components.TOATextField
+import com.houssem85.toa.core.ui.core.VerticalSpacer
+import com.houssem85.toa.core.ui.theme.TOATheme
 
 private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 
 /**
  * This composable maintains the entire screen for handling user login.
  * @param[viewState] The current state of the screen to render.
- * @param[onUserNameChanged] A callback that invoked when the user change text in [UsernameInput]
+ * @param[onEmailChanged] A callback that invoked when the user change text in [EmailInput]
  * @param[onPasswordChanged] A callback that invoked when the user change text in [PasswordInput]
  * @param[onLoginClicked] A callback that invoked when the user clicks [LoginButton]
  * @param[onSignUpClicked] A callback that invoked when the user clicks [SignUpButton]
@@ -36,7 +36,7 @@ private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 @Composable
 fun LoginContent(
     viewState: LoginViewState,
-    onUserNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
@@ -51,7 +51,7 @@ fun LoginContent(
             Spacer(modifier = Modifier.weight(1F))
             AppLogo()
             Spacer(modifier = Modifier.weight(1F))
-            UsernameInput(viewState.userName, onTextChanged = onUserNameChanged)
+            EmailInput(viewState.email, onTextChanged = onEmailChanged)
             VerticalSpacer(height = 12.dp)
             PasswordInput(viewState.password, onTextChanged = onPasswordChanged)
             VerticalSpacer(height = 48.dp)
@@ -87,11 +87,11 @@ private fun PasswordInput(text: String, onTextChanged: (String) -> Unit) {
 }
 
 @Composable
-private fun UsernameInput(text: String, onTextChanged: (String) -> Unit) {
+private fun EmailInput(text: String, onTextChanged: (String) -> Unit) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
-        labelText = stringResource(R.string.username)
+        labelText = stringResource(R.string.email)
     )
 }
 

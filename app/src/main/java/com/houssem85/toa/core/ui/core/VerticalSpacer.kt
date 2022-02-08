@@ -1,4 +1,4 @@
-package com.houssem85.toa.ui.core
+package com.houssem85.toa.core.ui.core
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
