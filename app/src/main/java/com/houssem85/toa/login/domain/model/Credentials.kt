@@ -1,12 +1,16 @@
 package com.houssem85.toa.login.domain.model
 
-@Suppress("UnusedPrivateMember")
 @JvmInline
-value class Email(private val email: String)
+value class Email(
+    @Suppress("UnusedPrivateMember")
+    private val email: String
+)
 
-@Suppress("UnusedPrivateMember")
 @JvmInline
-value class Password(private val password: String)
+value class Password(
+    @Suppress("UnusedPrivateMember")
+    private val password: String
+)
 
 /**
  * This data class contains user information's
@@ -14,6 +18,6 @@ value class Password(private val password: String)
  * @param[password] user password
  * */
 data class Credentials(
-    private val email : Email,
+    private val email: Email,
     private val password: Password
 )
