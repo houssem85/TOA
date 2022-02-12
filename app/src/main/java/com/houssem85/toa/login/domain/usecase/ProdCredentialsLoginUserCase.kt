@@ -5,14 +5,17 @@ import com.houssem85.toa.login.domain.model.Credentials
 import com.houssem85.toa.login.domain.model.InvalidCredentialsException
 import com.houssem85.toa.login.domain.model.LoginResult
 import com.houssem85.toa.login.domain.repository.LoginRepository
+import com.houssem85.toa.login.domain.repository.TokenRepository
 
 /**
  * That is a concrete implementation of [CredentialsLoginUseCase] that will request logging in via
  * the [LoginRepository].
  * @property [loginRepository] the data layer that group login request methods.
+ * @property [tokenRepository] the data layer that care about storing and fetching token.
  * */
 class ProdCredentialsLoginUserCase(
     private val loginRepository: LoginRepository,
+    private val tokenRepository: TokenRepository,
 ) : CredentialsLoginUseCase {
     override suspend fun invoke(credentials: Credentials): LoginResult {
         val resultLoginResponse = loginRepository.login(credentials = credentials)
@@ -21,7 +24,7 @@ class ProdCredentialsLoginUserCase(
                 loginResultForFailure(resultLoginResponse)
             }
             is Result.Success -> {
-                // store auth token
+                tokenRepository.storeToken(resultLoginResponse.data.token)
                 LoginResult.Success
             }
         }

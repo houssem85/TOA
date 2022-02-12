@@ -2,14 +2,12 @@ package com.houssem85.toa.login.domain.model
 
 @JvmInline
 value class Email(
-    @Suppress("UnusedPrivateMember")
-    private val email: String
+    val email: String
 )
 
 @JvmInline
 value class Password(
-    @Suppress("UnusedPrivateMember")
-    private val password: String
+    val password: String
 )
 
 /**
