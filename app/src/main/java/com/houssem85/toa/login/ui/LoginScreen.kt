@@ -15,6 +15,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.R
 import com.houssem85.toa.core.ui.components.PrimaryButton
@@ -22,6 +24,9 @@ import com.houssem85.toa.core.ui.components.SecondaryButton
 import com.houssem85.toa.core.ui.components.TOATextField
 import com.houssem85.toa.core.ui.core.VerticalSpacer
 import com.houssem85.toa.core.ui.theme.TOATheme
+import com.houssem85.toa.login.domain.model.Credentials
+import com.houssem85.toa.login.domain.model.Email
+import com.houssem85.toa.login.domain.model.Password
 
 private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 
@@ -51,9 +56,9 @@ fun LoginContent(
             Spacer(modifier = Modifier.weight(1F))
             AppLogo()
             Spacer(modifier = Modifier.weight(1F))
-            EmailInput(viewState.email, onTextChanged = onEmailChanged)
+            EmailInput(viewState.credentials.email.value, onTextChanged = onEmailChanged)
             VerticalSpacer(height = 12.dp)
-            PasswordInput(viewState.password, onTextChanged = onPasswordChanged)
+            PasswordInput(viewState.credentials.password.value, onTextChanged = onPasswordChanged)
             VerticalSpacer(height = 48.dp)
             LoginButton(onClick = onLoginClicked)
             SignUpButton(onClick = onSignUpClicked)
@@ -114,13 +119,39 @@ private fun AppLogo() {
 )
 @Composable
 @Suppress("UnusedPrivateMember")
-private fun LoginContentPreview() {
+private fun LoginContentPreview(
+    @PreviewParameter(LoginViewStateProvider::class)
+    loginViewState: LoginViewState
+) {
     TOATheme {
-        val viewState = LoginViewState("", "")
-        LoginContent(viewState, {
+        LoginContent(loginViewState, {
         }, {
         }, {
         }, {
         })
     }
+}
+
+class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
+    override val values: Sequence<LoginViewState>
+        get() {
+            val activeCredentials = Credentials(
+                Email("test@testface.com"),
+                Password("Hunter2"),
+            )
+            return sequenceOf(
+                LoginViewState.Initial,
+                LoginViewState.Active(activeCredentials),
+                LoginViewState.Submitting(activeCredentials),
+                LoginViewState.SubmittingError(
+                    credentials = activeCredentials,
+                    "Something went wrong."
+                ),
+                LoginViewState.InputError(
+                    activeCredentials,
+                    "email not valid",
+                    null
+                )
+            )
+        }
 }

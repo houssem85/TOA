@@ -2,12 +2,12 @@ package com.houssem85.toa.login.domain.model
 
 @JvmInline
 value class Email(
-    val email: String
+    val value: String
 )
 
 @JvmInline
 value class Password(
-    val password: String
+    val value: String
 )
 
 /**
@@ -16,6 +16,6 @@ value class Password(
  * @param[password] user password
  * */
 data class Credentials(
-    private val email: Email,
-    private val password: Password
+    val email: Email = Email(""),
+    val password: Password = Password("")
 )
