@@ -25,13 +25,15 @@ import com.houssem85.toa.core.ui.theme.TOATheme
  * @param[text] Text inside the button
  * @param[onClick] A callback invoked when the user clicks the button
  * @param[modifier] An optional [Modifier] to configure the composable
+ * @param[enabled] If its true the button become clickable otherwise not.
  **/
 @Composable
 fun SecondaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    contentColor: Color = MaterialTheme.colors.primary
+    contentColor: Color = MaterialTheme.colors.primary,
+    enabled: Boolean = true
 ) {
     val colors = textButtonColors(
         contentColor = contentColor
@@ -42,7 +44,8 @@ fun SecondaryButton(
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth(),
         shape = ButtonShape,
-        colors = colors
+        colors = colors,
+        enabled = enabled,
     ) {
         Text(
             text = text.toUpperCase(Locale.current)

@@ -2,12 +2,17 @@ package com.houssem85.toa.login.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,56 +52,107 @@ fun LoginContent(
     onSignUpClicked: () -> Unit,
 ) {
     Surface {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.screen_padding)),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Spacer(modifier = Modifier.weight(1F))
-            AppLogo()
-            Spacer(modifier = Modifier.weight(1F))
-            EmailInput(viewState.credentials.email.value, onTextChanged = onEmailChanged)
-            VerticalSpacer(height = 12.dp)
-            PasswordInput(viewState.credentials.password.value, onTextChanged = onPasswordChanged)
-            VerticalSpacer(height = 48.dp)
-            LoginButton(onClick = onLoginClicked)
-            SignUpButton(onClick = onSignUpClicked)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.screen_padding)),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.weight(1F))
+                AppLogo()
+                Spacer(modifier = Modifier.weight(1F))
+                EmailInput(
+                    text = viewState.credentials.email.value,
+                    onTextChanged = onEmailChanged,
+                    errorMessage = (viewState as? LoginViewState.InputError)?.emailInputErrorMessage
+                )
+                VerticalSpacer(height = 12.dp)
+                PasswordInput(
+                    text = viewState.credentials.password.value,
+                    onTextChanged = onPasswordChanged,
+                    errorMessage = (viewState as? LoginViewState.InputError)?.passwordInputErrorMessage
+                )
+                if (viewState is LoginViewState.SubmittingError) {
+                    Text(
+                        text = "mjrtgn",
+                        color = MaterialTheme.colors.error,
+                        modifier = Modifier
+                            .padding(top = 12.dp)
+                    )
+                }
+                VerticalSpacer(height = 48.dp)
+                LoginButton(
+                    onClick = onLoginClicked,
+                    enabled = viewState.buttonsEnabled,
+                )
+                SignUpButton(
+                    onClick = onSignUpClicked,
+                    enabled = viewState.buttonsEnabled,
+                )
+            }
+            if (viewState is LoginViewState.Submitting) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center)
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun SignUpButton(onClick: () -> Unit) {
+private fun SignUpButton(
+    onClick: () -> Unit,
+    enabled: Boolean,
+) {
     SecondaryButton(
         text = stringResource(R.string.sign_up),
         onClick = onClick,
+        enabled = enabled
     )
 }
 
 @Composable
-private fun LoginButton(onClick: () -> Unit) {
+private fun LoginButton(
+    onClick: () -> Unit,
+    enabled: Boolean
+) {
     PrimaryButton(
         text = stringResource(R.string.log_in),
         onClick = onClick,
+        enabled = enabled
     )
 }
 
 @Composable
-private fun PasswordInput(text: String, onTextChanged: (String) -> Unit) {
+private fun PasswordInput(
+    text: String,
+    onTextChanged: (String) -> Unit,
+    errorMessage: String?,
+) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
-        labelText = stringResource(R.string.password)
+        labelText = stringResource(R.string.password),
+        errorMessage = errorMessage
     )
 }
 
 @Composable
-private fun EmailInput(text: String, onTextChanged: (String) -> Unit) {
+private fun EmailInput(
+    text: String,
+    onTextChanged: (String) -> Unit,
+    errorMessage: String?
+) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
-        labelText = stringResource(R.string.email)
+        labelText = stringResource(R.string.email),
+        errorMessage = errorMessage,
     )
 }
 

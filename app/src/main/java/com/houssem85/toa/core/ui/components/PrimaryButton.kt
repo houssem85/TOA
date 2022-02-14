@@ -25,13 +25,15 @@ import com.houssem85.toa.core.ui.theme.TOATheme
  * @param[onClick] A callback invoked when the user clicks the button
  * @param[modifier] An optional [Modifier] to configure the composable
  * @param[backgroundColor] The color of the button in enabled state
+ * @param[enabled] If its true the button become clickable otherwise not.
  **/
 @Composable
 fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primary
+    backgroundColor: Color = MaterialTheme.colors.primary,
+    enabled: Boolean = true
 ) {
     val buttonColors = buttonColors(
         backgroundColor = backgroundColor
@@ -43,6 +45,7 @@ fun PrimaryButton(
             .fillMaxWidth(),
         colors = buttonColors,
         shape = ButtonShape,
+        enabled = enabled
     ) {
         Text(
             text = text.toUpperCase(Locale.current)
