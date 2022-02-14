@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.R
@@ -32,7 +33,8 @@ fun TOATextField(
     onTextChanged: (String) -> Unit,
     labelText: String,
     modifier: Modifier = Modifier,
-    errorMessage: String? = null
+    errorMessage: String? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     Column {
         OutlinedTextField(
@@ -45,7 +47,8 @@ fun TOATextField(
             modifier = modifier
                 .fillMaxWidth()
                 .heightIn(dimensionResource(id = R.dimen.text_field_height)),
-            isError = errorMessage != null
+            isError = errorMessage != null,
+            visualTransformation = visualTransformation,
         )
         if (errorMessage != null) {
             Text(
