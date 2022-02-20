@@ -81,7 +81,7 @@ fun LoginContent(
                 )
                 if (viewState is LoginViewState.SubmittingError) {
                     Text(
-                        text = viewState.errorMessage.getString(LocalContext.current ),
+                        text = viewState.errorMessage.getString(LocalContext.current),
                         color = MaterialTheme.colors.error,
                         modifier = Modifier
                             .padding(top = 12.dp)
