@@ -3,6 +3,8 @@ package com.houssem85.toa.login.ui
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.houssem85.toa.fakes.FakeCredentialsLoginUseCase
+import com.houssem85.toa.login.domain.model.Credentials
+import com.houssem85.toa.login.domain.model.LoginResult
 
 class LoginViewModelRobot {
 
@@ -46,5 +48,12 @@ class LoginViewModelRobot {
             }
             this.cancel()
         }
+    }
+
+    fun mockLoginResultForCredentials(credentials: Credentials, loginResult: LoginResult) {
+        credentialsLoginUseCase.mockLoginResultForCredentials(
+            credentials = credentials,
+            loginResult = loginResult,
+        )
     }
 }

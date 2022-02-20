@@ -1,11 +1,16 @@
 package com.houssem85.toa.login.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.houssem85.toa.R
+import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.login.domain.model.Email
+import com.houssem85.toa.login.domain.model.LoginResult
 import com.houssem85.toa.login.domain.model.Password
 import com.houssem85.toa.login.domain.usecase.CredentialsLoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /**
  * This view model emit the view state to login screen based on the result of credentials login use case,
@@ -43,6 +48,23 @@ class LoginViewModel(
     }
 
     fun loginButtonClicked() {
-        TODO()
+        val currentCredentials = _viewState.value.credentials
+        viewModelScope.launch {
+            _viewState.value = LoginViewState.Submitting(
+                credentials = currentCredentials
+            )
+            when (credentialsLoginUseCase(currentCredentials)) {
+                LoginResult.Failure.InvalidCredentials -> {
+                    _viewState.value = LoginViewState.SubmittingError(
+                        credentials = currentCredentials,
+                        errorMessage = UIText.ResourceText(R.string.err_invalid_credentials)
+                    )
+                }
+                LoginResult.Failure.Unknown -> {
+                }
+                LoginResult.Success -> {
+                }
+            }
+        }
     }
 }
