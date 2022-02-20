@@ -114,4 +114,59 @@ class LoginViewModelTest {
             expectedViewStates = expectedViewStates,
         )
     }
+
+    @Test
+    fun testUnknownLoginFailure() = runBlockingTest {
+        val testEmail = "wrong@toa.com"
+        val testPassword = "0000"
+
+        val initialState = LoginViewState.Initial
+        val emailEnteredState = LoginViewState.Active(
+            credentials = Credentials(
+                email = Email(testEmail)
+            )
+        )
+        val passwordEmailEnteredState = LoginViewState.Active(
+            credentials = Credentials(
+                email = Email(testEmail),
+                password = Password(testPassword),
+            )
+        )
+        val submittingState = LoginViewState.Submitting(
+            credentials = Credentials(
+                email = Email(testEmail),
+                password = Password(testPassword),
+            )
+        )
+        val unknownErrorState = LoginViewState.SubmittingError(
+            credentials = Credentials(
+                email = Email(testEmail),
+                password = Password(testPassword),
+            ),
+            UIText.ResourceText(R.string.err_login_failure),
+        )
+        val expectedViewStates = listOf(
+            initialState,
+            emailEnteredState,
+            passwordEmailEnteredState,
+            submittingState,
+            unknownErrorState,
+        )
+        testRobot.buildViewModel()
+        testRobot.mockLoginResultForCredentials(
+            Credentials(
+                email = Email(testEmail),
+                password = Password(testPassword),
+            ),
+            LoginResult.Failure.Unknown
+        )
+        testRobot.assertViewStatesAfterAction(
+            action = {
+                testRobot.enterEmail(testEmail)
+                testRobot.enterPassword(testPassword)
+                testRobot.clickLoginButton()
+            },
+            expectedViewStates = expectedViewStates,
+        )
+    }
 }

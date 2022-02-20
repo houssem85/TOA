@@ -43,7 +43,7 @@ class LoginViewModel(
         )
     }
 
-    fun signInButtonClicked() {
+    fun signUpButtonClicked() {
         TODO()
     }
 
@@ -61,6 +61,10 @@ class LoginViewModel(
                     )
                 }
                 LoginResult.Failure.Unknown -> {
+                    _viewState.value = LoginViewState.SubmittingError(
+                        credentials = currentCredentials,
+                        errorMessage = UIText.ResourceText(R.string.err_login_failure)
+                    )
                 }
                 LoginResult.Success -> {
                 }
