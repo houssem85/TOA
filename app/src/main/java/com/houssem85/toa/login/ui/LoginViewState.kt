@@ -1,5 +1,6 @@
 package com.houssem85.toa.login.ui
 
+import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.login.domain.model.Credentials
 
 /**
@@ -42,7 +43,7 @@ sealed class LoginViewState(
      * */
     data class SubmittingError(
         override val credentials: Credentials,
-        val errorMessage: String
+        val errorMessage: UIText
     ) : LoginViewState(
         credentials = credentials,
     )

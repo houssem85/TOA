@@ -5,6 +5,8 @@ buildscript {
         ktlintPluginVersion = "10.2.0"
         // https://github.com/detekt/detekt/releases
         detektVersion = "1.19.0"
+        // https://github.com/cashapp/turbine/releases
+        turbine_version = "0.7.0"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

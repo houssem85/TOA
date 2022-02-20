@@ -16,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,10 +26,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.R
+import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.core.ui.components.PrimaryButton
 import com.houssem85.toa.core.ui.components.SecondaryButton
 import com.houssem85.toa.core.ui.components.TOATextField
 import com.houssem85.toa.core.ui.core.VerticalSpacer
+import com.houssem85.toa.core.ui.getString
 import com.houssem85.toa.core.ui.theme.TOATheme
 import com.houssem85.toa.login.domain.model.Credentials
 import com.houssem85.toa.login.domain.model.Email
@@ -78,7 +81,7 @@ fun LoginContent(
                 )
                 if (viewState is LoginViewState.SubmittingError) {
                     Text(
-                        text = "mjrtgn",
+                        text = viewState.errorMessage.getString(LocalContext.current),
                         color = MaterialTheme.colors.error,
                         modifier = Modifier
                             .padding(top = 12.dp)
@@ -203,7 +206,7 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.Submitting(activeCredentials),
                 LoginViewState.SubmittingError(
                     credentials = activeCredentials,
-                    "Something went wrong."
+                    errorMessage = UIText.ResourceText(R.string.err_invalid_credentials)
                 ),
                 LoginViewState.InputError(
                     activeCredentials,
