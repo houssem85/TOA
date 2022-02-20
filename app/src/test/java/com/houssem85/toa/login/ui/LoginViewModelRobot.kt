@@ -33,8 +33,8 @@ class LoginViewModelRobot {
         viewModel.loginButtonClicked()
     }
 
-    fun clickSignInButton() = apply {
-        viewModel.signInButtonClicked()
+    fun clickSignUpButton() = apply {
+        viewModel.signUpButtonClicked()
     }
 
     suspend fun assertViewStatesAfterAction(
