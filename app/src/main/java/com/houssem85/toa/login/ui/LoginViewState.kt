@@ -24,7 +24,9 @@ sealed class LoginViewState(
      * The state of the screen when the user begin entering credentials.
      * */
     data class Active(
-        override val credentials: Credentials
+        override val credentials: Credentials,
+        val emailInputErrorMessage: UIText? = null,
+        val passwordInputErrorMessage: UIText? = null,
     ) : LoginViewState(
         credentials = credentials,
     )
@@ -38,6 +40,7 @@ sealed class LoginViewState(
         credentials = credentials,
         buttonsEnabled = false
     )
+
     /**
      * The state of screen when the user has an error after an attempting to login.
      * */
@@ -46,13 +49,5 @@ sealed class LoginViewState(
         val errorMessage: UIText
     ) : LoginViewState(
         credentials = credentials,
-    )
-
-    data class InputError(
-        override val credentials: Credentials,
-        val emailInputErrorMessage: String?,
-        val passwordInputErrorMessage: String?
-    ) : LoginViewState(
-        credentials = credentials
     )
 }

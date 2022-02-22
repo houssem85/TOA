@@ -71,13 +71,17 @@ fun LoginContent(
                 EmailInput(
                     text = viewState.credentials.email.value,
                     onTextChanged = onEmailChanged,
-                    errorMessage = (viewState as? LoginViewState.InputError)?.emailInputErrorMessage
+                    errorMessage = (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString(
+                        LocalContext.current
+                    )
                 )
                 VerticalSpacer(height = 12.dp)
                 PasswordInput(
                     text = viewState.credentials.password.value,
                     onTextChanged = onPasswordChanged,
-                    errorMessage = (viewState as? LoginViewState.InputError)?.passwordInputErrorMessage
+                    errorMessage = (viewState as? LoginViewState.Active)?.passwordInputErrorMessage?.getString(
+                        LocalContext.current
+                    )
                 )
                 if (viewState is LoginViewState.SubmittingError) {
                     Text(
@@ -207,11 +211,6 @@ class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
                 LoginViewState.SubmittingError(
                     credentials = activeCredentials,
                     errorMessage = UIText.ResourceText(R.string.err_invalid_credentials)
-                ),
-                LoginViewState.InputError(
-                    activeCredentials,
-                    "email not valid",
-                    null
                 )
             )
         }

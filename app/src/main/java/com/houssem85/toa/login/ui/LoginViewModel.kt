@@ -4,10 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.houssem85.toa.R
 import com.houssem85.toa.core.ui.UIText
+import com.houssem85.toa.login.domain.model.Credentials
 import com.houssem85.toa.login.domain.model.Email
 import com.houssem85.toa.login.domain.model.LoginResult
 import com.houssem85.toa.login.domain.model.Password
 import com.houssem85.toa.login.domain.usecase.CredentialsLoginUseCase
+import com.houssem85.toa.login.ui.LoginViewState.Active
+import com.houssem85.toa.login.ui.LoginViewState.Initial
+import com.houssem85.toa.login.ui.LoginViewState.Submitting
+import com.houssem85.toa.login.ui.LoginViewState.SubmittingError
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,12 +27,12 @@ class LoginViewModel(
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<LoginViewState> =
-        MutableStateFlow(LoginViewState.Initial)
+        MutableStateFlow(Initial)
     val viewState: StateFlow<LoginViewState> = _viewState
 
     fun emailChanged(value: String) {
         val currentCredentials = _viewState.value.credentials
-        _viewState.value = LoginViewState.Active(
+        _viewState.value = Active(
             credentials = currentCredentials.copy(
                 email = Email(value)
             )
@@ -36,7 +41,7 @@ class LoginViewModel(
 
     fun passwordChanged(value: String) {
         val currentCredentials = _viewState.value.credentials
-        _viewState.value = LoginViewState.Active(
+        _viewState.value = Active(
             credentials = currentCredentials.copy(
                 password = Password(value)
             )
@@ -50,25 +55,47 @@ class LoginViewModel(
     fun loginButtonClicked() {
         val currentCredentials = _viewState.value.credentials
         viewModelScope.launch {
-            _viewState.value = LoginViewState.Submitting(
+            _viewState.value = Submitting(
                 credentials = currentCredentials
             )
-            when (credentialsLoginUseCase(currentCredentials)) {
-                LoginResult.Failure.InvalidCredentials -> {
-                    _viewState.value = LoginViewState.SubmittingError(
+            val loginResult = credentialsLoginUseCase(currentCredentials)
+            _viewState.value = when (loginResult) {
+                is LoginResult.Failure.InvalidCredentials -> {
+                    SubmittingError(
                         credentials = currentCredentials,
                         errorMessage = UIText.ResourceText(R.string.err_invalid_credentials)
                     )
                 }
-                LoginResult.Failure.Unknown -> {
-                    _viewState.value = LoginViewState.SubmittingError(
+                is LoginResult.Failure.Unknown -> {
+                    SubmittingError(
                         credentials = currentCredentials,
                         errorMessage = UIText.ResourceText(R.string.err_login_failure)
                     )
                 }
-                LoginResult.Success -> {
+                is LoginResult.Failure.EmptyCredentials -> {
+                    loginResult.toLoginViewState(
+                        credentials = currentCredentials
+                    )
+                }
+                is LoginResult.Success -> {
+                    _viewState.value
                 }
             }
         }
     }
+}
+
+private fun LoginResult.Failure.EmptyCredentials.toLoginViewState(
+    credentials: Credentials
+): LoginViewState {
+    return Active(
+        credentials = credentials,
+        emailInputErrorMessage = UIText.ResourceText(R.string.err_empty_email).takeIf {
+            emptyEmail
+        },
+        passwordInputErrorMessage =
+        UIText.ResourceText(R.string.err_empty_password).takeIf {
+            emptyPassword
+        }
+    )
 }

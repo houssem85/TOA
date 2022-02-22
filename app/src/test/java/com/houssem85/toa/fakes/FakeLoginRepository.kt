@@ -4,7 +4,9 @@ import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.login.domain.model.Credentials
 import com.houssem85.toa.login.domain.model.LoginResponse
 import com.houssem85.toa.login.domain.repository.LoginRepository
+import io.mockk.Called
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 
 /**
@@ -21,5 +23,11 @@ class FakeLoginRepository {
         coEvery {
             mock.login(credentials = credentials)
         } returns result
+    }
+
+    fun verifyNoLoginCall() {
+        coVerify {
+            mock wasNot Called
+        }
     }
 }
