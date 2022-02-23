@@ -172,7 +172,6 @@ class LoginViewModelTest {
 
     @Test
     fun testSubmitWithoutCredentials() = runBlockingTest {
-
         val testEmail = ""
         val testPassword = ""
 

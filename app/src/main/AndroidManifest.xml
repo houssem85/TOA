@@ -3,6 +3,7 @@
     package="com.houssem85.toa">
 
     <application
+        android:name=".TOAApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +13,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.TaskesOfAffirmation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
