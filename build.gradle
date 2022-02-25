@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        compose_version = '1.0.1'
+        compose_version = '1.1.0'
         // https://github.com/JLLeitschuh/ktlint-gradle/releases
         ktlintPluginVersion = "10.2.0"
         // https://github.com/detekt/detekt/releases
@@ -14,7 +14,7 @@ buildscript {
 plugins {
     id 'com.android.application' version '7.1.0' apply false
     id 'com.android.library' version '7.1.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.5.21' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     id "org.jlleitschuh.gradle.ktlint" version "$ktlintPluginVersion"
     id "io.gitlab.arturbosch.detekt" version "$detektVersion"
     id "dagger.hilt.android.plugin" version "$hilt_version" apply false

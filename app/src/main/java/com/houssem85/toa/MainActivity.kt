@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.houssem85.toa.core.ui.theme.TOATheme
+import com.houssem85.toa.login.ui.LoginScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -12,6 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TOATheme {
+                LoginScreen()
             }
         }
     }

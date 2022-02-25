@@ -2,17 +2,18 @@ package com.houssem85.toa.login.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
-    val viewState = viewModel.viewState.collectAsState()
+    val viewState = loginViewModel.viewState.collectAsState()
     LoginContent(
         viewState = viewState.value,
-        onEmailChanged = viewModel::emailChanged,
-        onPasswordChanged = viewModel::passwordChanged,
-        onLoginClicked = viewModel::loginButtonClicked,
-        onSignUpClicked = viewModel::signUpButtonClicked
+        onEmailChanged = loginViewModel::emailChanged,
+        onPasswordChanged = loginViewModel::passwordChanged,
+        onLoginClicked = loginViewModel::loginButtonClicked,
+        onSignUpClicked = loginViewModel::signUpButtonClicked
     )
 }
