@@ -6,6 +6,7 @@ import com.houssem85.toa.login.domain.model.InvalidCredentialsException
 import com.houssem85.toa.login.domain.model.LoginResult
 import com.houssem85.toa.login.domain.repository.LoginRepository
 import com.houssem85.toa.login.domain.repository.TokenRepository
+import javax.inject.Inject
 
 /**
  * That is a concrete implementation of [CredentialsLoginUseCase] that will request logging in via
@@ -13,7 +14,7 @@ import com.houssem85.toa.login.domain.repository.TokenRepository
  * @property [loginRepository] the data layer that group login request methods.
  * @property [tokenRepository] the data layer that care about storing and fetching token.
  * */
-class ProdCredentialsLoginUserCase(
+class ProdCredentialsLoginUserCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val tokenRepository: TokenRepository,
 ) : CredentialsLoginUseCase {

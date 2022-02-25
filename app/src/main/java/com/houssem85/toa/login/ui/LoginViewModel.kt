@@ -13,16 +13,19 @@ import com.houssem85.toa.login.ui.LoginViewState.Active
 import com.houssem85.toa.login.ui.LoginViewState.Initial
 import com.houssem85.toa.login.ui.LoginViewState.Submitting
 import com.houssem85.toa.login.ui.LoginViewState.SubmittingError
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * This view model emit the view state to login screen based on the result of credentials login use case,
  * handle the ui logic
  * @param[credentialsLoginUseCase] present the use case of login with credentials.
  * */
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val credentialsLoginUseCase: CredentialsLoginUseCase,
 ) : ViewModel() {
 
