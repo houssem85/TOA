@@ -26,6 +26,7 @@ import com.houssem85.toa.core.ui.theme.TextFieldShape
  * @param[onTextChanged] A callback invoked whenever the user modifies the text input the inputs
  * @param[labelText] The label that show above the input when focused
  * @param[modifier] An optional [Modifier] to configure this component.
+ * @param[enabled] if true the user can interact with [TOATextField] otherwise not.
  * */
 @Composable
 fun TOATextField(
@@ -34,7 +35,8 @@ fun TOATextField(
     labelText: String,
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true
 ) {
     Column {
         OutlinedTextField(
@@ -49,6 +51,7 @@ fun TOATextField(
                 .heightIn(dimensionResource(id = R.dimen.text_field_height)),
             isError = errorMessage != null,
             visualTransformation = visualTransformation,
+            enabled = enabled,
         )
         if (errorMessage != null) {
             Text(

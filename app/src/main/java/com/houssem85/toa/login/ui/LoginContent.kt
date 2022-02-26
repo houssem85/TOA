@@ -73,7 +73,8 @@ fun LoginContent(
                     onTextChanged = onEmailChanged,
                     errorMessage = (viewState as? LoginViewState.Active)?.emailInputErrorMessage?.getString(
                         LocalContext.current
-                    )
+                    ),
+                    enabled = viewState.inputsEnabled
                 )
                 VerticalSpacer(height = 12.dp)
                 PasswordInput(
@@ -81,7 +82,8 @@ fun LoginContent(
                     onTextChanged = onPasswordChanged,
                     errorMessage = (viewState as? LoginViewState.Active)?.passwordInputErrorMessage?.getString(
                         LocalContext.current
-                    )
+                    ),
+                    enabled = viewState.inputsEnabled,
                 )
                 if (viewState is LoginViewState.SubmittingError) {
                     Text(
@@ -94,11 +96,11 @@ fun LoginContent(
                 VerticalSpacer(height = 48.dp)
                 LoginButton(
                     onClick = onLoginClicked,
-                    enabled = viewState.buttonsEnabled,
+                    enabled = viewState.inputsEnabled,
                 )
                 SignUpButton(
                     onClick = onSignUpClicked,
-                    enabled = viewState.buttonsEnabled,
+                    enabled = viewState.inputsEnabled,
                 )
             }
             if (viewState is LoginViewState.Submitting) {
@@ -141,13 +143,15 @@ private fun PasswordInput(
     text: String,
     onTextChanged: (String) -> Unit,
     errorMessage: String?,
+    enabled: Boolean,
 ) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
-        visualTransformation = PasswordVisualTransformation()
+        visualTransformation = PasswordVisualTransformation(),
+        enabled = enabled,
     )
 }
 
@@ -155,13 +159,15 @@ private fun PasswordInput(
 private fun EmailInput(
     text: String,
     onTextChanged: (String) -> Unit,
-    errorMessage: String?
+    errorMessage: String?,
+    enabled: Boolean
 ) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.email),
         errorMessage = errorMessage,
+        enabled = enabled
     )
 }
 

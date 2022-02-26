@@ -6,18 +6,18 @@ import com.houssem85.toa.login.domain.model.Credentials
 /**
  * This defines the state of login screen
  * @property[credentials] the currents credentials entered by the user.
- * @property[buttonsEnabled] define if the buttons can accept clicks or not.
+ * @property[inputsEnabled] define if the buttons can accept clicks or not.
  * */
 sealed class LoginViewState(
     open val credentials: Credentials,
-    val buttonsEnabled: Boolean = true,
+    val inputsEnabled: Boolean = true,
 ) {
     /**
      * The initial state of the screen with nothing inputs.
      * */
     object Initial : LoginViewState(
         Credentials(),
-        buttonsEnabled = true
+        inputsEnabled = true
     )
 
     /**
@@ -38,7 +38,7 @@ sealed class LoginViewState(
         override val credentials: Credentials
     ) : LoginViewState(
         credentials = credentials,
-        buttonsEnabled = false
+        inputsEnabled = false
     )
 
     /**
@@ -56,6 +56,6 @@ sealed class LoginViewState(
      * */
     object Completed : LoginViewState(
         credentials = Credentials(),
-        buttonsEnabled = false,
+        inputsEnabled = false,
     )
 }
