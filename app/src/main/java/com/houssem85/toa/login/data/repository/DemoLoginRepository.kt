@@ -7,7 +7,6 @@ import com.houssem85.toa.login.domain.model.LoginResponse
 import com.houssem85.toa.login.domain.model.RefreshToken
 import com.houssem85.toa.login.domain.model.Token
 import com.houssem85.toa.login.domain.repository.LoginRepository
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 /**
@@ -16,7 +15,6 @@ import javax.inject.Inject
  */
 class DemoLoginRepository @Inject constructor() : LoginRepository {
     override suspend fun login(credentials: Credentials): Result<LoginResponse> {
-        delay(5000)
         return Result.Success(
             data = LoginResponse(
                 token = Token(
