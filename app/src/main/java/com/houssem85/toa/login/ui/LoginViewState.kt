@@ -50,4 +50,12 @@ sealed class LoginViewState(
     ) : LoginViewState(
         credentials = credentials,
     )
+
+    /**
+     * The state of screen when an attempt of login is successful.
+     * */
+    object Completed : LoginViewState(
+        credentials = Credentials(),
+        buttonsEnabled = false,
+    )
 }

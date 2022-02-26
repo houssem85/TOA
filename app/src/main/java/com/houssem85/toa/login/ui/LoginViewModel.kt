@@ -81,7 +81,7 @@ class LoginViewModel @Inject constructor(
                     )
                 }
                 is LoginResult.Success -> {
-                    _viewState.value
+                    LoginViewState.Completed
                 }
             }
         }
