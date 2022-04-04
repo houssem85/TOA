@@ -45,6 +45,9 @@ A viewModel may also have certain actions that triggered the moment ViewModel is
 
 The View component is solely responsible for being able to display data 
 on the ui. It can consume a view state witch specifies what information should be rendered.
-ANy UI events such as inputs , button clicks , gestures , etc will be passed to the ViewModel 
-witch determines what action needs to happen. 
+Any UI events such as inputs , button clicks , gestures , etc will be passed to the ViewModel 
+witch determines what action needs to happen.
+
+If a screen has multiple complex views or multiple responsibilities,
+it's possible to reference multiple ViewModel dependencies.
 
