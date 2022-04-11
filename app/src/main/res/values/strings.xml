@@ -9,4 +9,6 @@
     <string name="err_login_failure">There was a problem logging in. Please check your internet connection and try again.</string>
     <string name="err_empty_email">Please enter an email.</string>
     <string name="err_empty_password">Please enter a password.</string>
+    <string name="done">DONE</string>
+    <string name="reschedule">RESCHEDULE</string>
 </resources>
