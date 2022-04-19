@@ -11,9 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,7 +90,7 @@ fun LoginContent(
                 if (viewState is LoginViewState.SubmittingError) {
                     Text(
                         text = viewState.errorMessage.getString(LocalContext.current),
-                        color = MaterialTheme.colors.error,
+                        color = MaterialTheme.colorScheme.error,
                         modifier = Modifier
                             .padding(top = 12.dp)
                     )
@@ -131,7 +131,7 @@ private fun SignUpButton(
 @Composable
 private fun LoginButton(
     onClick: () -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
 ) {
     PrimaryButton(
         text = stringResource(R.string.log_in),
@@ -167,7 +167,7 @@ private fun EmailInput(
     text: String,
     onTextChanged: (String) -> Unit,
     errorMessage: String?,
-    enabled: Boolean
+    enabled: Boolean,
 ) {
     TOATextField(
         text = text,
@@ -199,7 +199,7 @@ private fun AppLogo() {
 @Suppress("UnusedPrivateMember")
 private fun LoginContentPreview(
     @PreviewParameter(LoginViewStateProvider::class)
-    loginViewState: LoginViewState
+    loginViewState: LoginViewState,
 ) {
     TOATheme {
         LoginContent(loginViewState, {

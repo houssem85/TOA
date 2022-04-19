@@ -1,46 +1,118 @@
 package com.houssem85.toa.core.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.houssem85.toa.R
 
-private val UrbanistExtraBold = FontFamily(Font(R.font.urbanist_extrabold))
-private val UrbanistSemiBold = FontFamily(Font(R.font.urbanist_semibold))
-private val urbanistBold = FontFamily(Font(R.font.urbanist_bold))
-private val UrbanistMedium = FontFamily(Font(R.font.urbanist_medium))
-private val UrbanistRegular = FontFamily(Font(R.font.urbanist_regular))
-private val UrbanistLight = FontFamily(Font(R.font.urbanist_light))
 
-val Typography = Typography(
-    h1 = TextStyle(
-        fontFamily = UrbanistExtraBold,
-        fontSize = 40.sp
+val Roboto = FontFamily.Default
+
+val AppTypography = Typography(
+    displayLarge = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 57.sp,
+        lineHeight = 64.sp,
+        letterSpacing = -0.25.sp,
     ),
-    h2 = TextStyle(
-        fontFamily = UrbanistExtraBold,
-        fontSize = 36.sp
+    displayMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 45.sp,
+        lineHeight = 52.sp,
+        letterSpacing = 0.sp,
     ),
-    h3 = TextStyle(
-        fontFamily = UrbanistSemiBold,
-        fontSize = 13.sp
+    displaySmall = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 36.sp,
+        lineHeight = 44.sp,
+        letterSpacing = 0.sp,
     ),
-    subtitle1 = TextStyle(
-        fontFamily = UrbanistMedium,
-        fontSize = 15.sp
+    headlineLarge = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 32.sp,
+        lineHeight = 40.sp,
+        letterSpacing = 0.sp,
     ),
-    body1 = TextStyle(
-        fontFamily = UrbanistLight,
-        fontSize = 13.sp
+    headlineMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 28.sp,
+        lineHeight = 36.sp,
+        letterSpacing = 0.sp,
     ),
-    button = TextStyle(
-        fontFamily = urbanistBold,
-        fontSize = 13.sp
+    headlineSmall = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 24.sp,
+        lineHeight = 32.sp,
+        letterSpacing = 0.sp,
     ),
-    caption = TextStyle(
-        fontFamily = UrbanistRegular,
-        fontSize = 12.sp
-    )
+    titleLarge = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.sp,
+    ),
+    titleMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.1.sp,
+    ),
+    titleSmall = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp,
+    ),
+    labelLarge = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp,
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.25.sp,
+    ),
+    bodySmall = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.W400,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.4.sp,
+    ),
+    labelMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    labelSmall = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp,
+    ),
 )

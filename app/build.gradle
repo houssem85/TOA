@@ -70,4 +70,5 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-alpha02"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation "androidx.compose.material3:material3:1.0.0-alpha09"
 }

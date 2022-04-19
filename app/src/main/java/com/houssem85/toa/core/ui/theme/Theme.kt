@@ -1,18 +1,19 @@
 package com.houssem85.toa.core.ui.theme
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
 fun TOATheme(
-    content: @Composable () -> Unit
+    isDark: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit,
 ) {
-    val colors = lightColorPalette
+    val colors = if (isDark) DarkThemeColors else LightThemeColors
 
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
+        colorScheme = colors,
+        typography = AppTypography,
         content = content
     )
 }
