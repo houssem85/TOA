@@ -1,1 +1,15 @@
 apply plugin: 'kover'
+
+tasks.koverHtmlReport {
+    enabled = true                          // false to disable report generation
+    excludes = [
+            "dagger.hilt.internal.aggregatedroot.codegen.*",
+            "hilt_aggregated_deps.*",
+            "*ComposableSingletons*",
+            "*Hilt*",
+            "com.houssem85.toa.login.data.di.*",
+            "com.houssem85.toa.login.domain.di",
+            "*BuildConfig*",
+            "*_Factory*",
+    ]
+}
