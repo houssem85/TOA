@@ -19,6 +19,7 @@ plugins {
     id "io.gitlab.arturbosch.detekt" version "$detektVersion"
     id "dagger.hilt.android.plugin" version "$hilt_version" apply false
     id "com.github.ben-manes.versions" version "0.42.0" apply false
+    id 'org.jetbrains.kotlinx.kover' version '0.5.0' apply false
 }
 
 apply from: "buildscripts/versions.gradle"
@@ -27,6 +28,7 @@ subprojects {
     apply from: "../buildscripts/ktlint.gradle"
     apply from: "../buildscripts/detekt.gradle"
     apply from: "../buildscripts/versionsplugin.gradle"
+    apply from: "../buildscripts/kover.gradle"
 }
 
 task clean(type: Delete) {
