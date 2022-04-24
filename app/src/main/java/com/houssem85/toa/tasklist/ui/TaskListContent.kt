@@ -2,10 +2,14 @@
 
 package com.houssem85.toa.tasklist.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -33,21 +37,32 @@ fun TaskListContent(
     onDoneClicked: (Task) -> Unit,
     onAddTaskClicked: () -> Unit,
 ) {
-    Scaffold(
-        floatingActionButton = {
-            AddTaskButton(onAddTaskClicked)
-        },
-        topBar = {
-            TaskListToolbar()
-        }
-    ) { paddingValues ->
-        if (viewState is TaskListViewState.Active) {
-            TaskList(
-                modifier = Modifier.padding(paddingValues),
-                tasks = viewState.tasks,
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        if (viewState is TaskListViewState.Loading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center)
             )
+        }
+        if (viewState is TaskListViewState.Active) {
+            Scaffold(
+                floatingActionButton = {
+                    AddTaskButton(onAddTaskClicked)
+                },
+                topBar = {
+                    TaskListToolbar()
+                }
+            ) { paddingValues ->
+                TaskList(
+                    modifier = Modifier.padding(paddingValues),
+                    tasks = viewState.tasks,
+                    onRescheduleClicked = onRescheduleClicked,
+                    onDoneClicked = onDoneClicked,
+                )
+            }
         }
     }
 }
