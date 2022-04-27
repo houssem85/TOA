@@ -39,5 +39,7 @@ ext {
             lint                 : "27.1.2",
             // https://developer.android.com/jetpack/androidx/releases/window
             windowManager        : "1.0.0",
+            composeDestination   : "1.5.1-beta",
+            navigationComponent  : "2.4.2"
     ]
 }

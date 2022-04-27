@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -48,6 +49,14 @@ android {
     kapt {
         correctErrorTypes true
     }
+
+    applicationVariants.all { variant ->
+        kotlin.sourceSets {
+            getByName(variant.name) {
+                kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -71,4 +80,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-alpha02"
     implementation "androidx.hilt:hilt-navigation-compose:$rootProject.ext.versions.hiltNavigationCompose"
     implementation "androidx.compose.material3:material3:$rootProject.ext.versions.composeMaterial3"
+    implementation "io.github.raamcosta.compose-destinations:core:$rootProject.ext.versions.composeDestination"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestination"
+    implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.navigationComponent"
 }
