@@ -14,4 +14,16 @@ class DemoTaskListRepository : TaskListRepository {
         }
         return Result.Success(tasks)
     }
+
+    override suspend fun addTask(task: Task): Result<Unit> {
+        return Result.Success(Unit)
+    }
+
+    override suspend fun deleteTask(task: Task): Result<Unit> {
+        return Result.Success(Unit)
+    }
+
+    override suspend fun markAsComplete(task: Task): Result<Unit> {
+        return Result.Success(Unit)
+    }
 }
