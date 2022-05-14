@@ -14,10 +14,10 @@ interface TaskListRepository {
     /**
      * Delete an existing task.
      * */
-    suspend fun deleteTask(task: Task) : Result<Unit>
+    suspend fun deleteTask(task: Task): Result<Unit>
 
     /**
      * Mark [task] is complete.
      * */
-    suspend fun markAsComplete(task: Task) : Result<Unit>
+    suspend fun markAsComplete(task: Task): Result<Unit>
 }
