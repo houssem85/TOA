@@ -1,9 +1,8 @@
-package com.houssem85.toa.tasklist.domain.usecase
+package com.houssem85.toa.addtask.domain.usecase
 
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.tasklist.domain.model.Task
 
-interface MarkTaskAsCompleteUseCase {
-
+interface AddTaskUseCase {
     suspend fun invoke(task: Task): Result<Unit>
 }
