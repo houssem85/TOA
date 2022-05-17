@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -24,6 +25,7 @@ import com.houssem85.toa.addtask.domain.model.TaskInput
 import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.core.ui.components.PrimaryButton
 import com.houssem85.toa.core.ui.components.TOATextField
+import com.houssem85.toa.core.ui.components.VerticalSpacer
 import com.houssem85.toa.core.ui.getString
 import com.houssem85.toa.core.ui.theme.TOATheme
 import java.time.LocalDate
@@ -35,9 +37,11 @@ fun AddTaskContent(
     onScheduledDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
 ) {
-    Box {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             Text(
@@ -49,6 +53,7 @@ fun AddTaskContent(
                 text = viewState.taskInput.description,
                 onTextChanged = onDescriptionChanged,
                 labelText = "",
+                enabled = viewState.inputsEnabled
             )
             Text(
                 text = "when would you like to do it?",
@@ -59,9 +64,11 @@ fun AddTaskContent(
                 text = "Today",
                 onTextChanged = {},
                 labelText = "",
+                enabled = viewState.inputsEnabled
             )
+
             if (viewState is AddTaskViewState.SubmissionError) {
-               Text(
+                Text(
                     text = viewState.errorMessage.getString(LocalContext.current),
                     color = MaterialTheme.colorScheme.error,
                     modifier = Modifier
@@ -69,6 +76,9 @@ fun AddTaskContent(
                         .align(alignment = Alignment.CenterHorizontally)
                 )
             }
+
+            VerticalSpacer(height = 40.dp)
+
             PrimaryButton(
                 text = "Submit",
                 onClick = onSubmitClicked,

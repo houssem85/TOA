@@ -32,7 +32,7 @@ import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.core.ui.components.PrimaryButton
 import com.houssem85.toa.core.ui.components.SecondaryButton
 import com.houssem85.toa.core.ui.components.TOATextField
-import com.houssem85.toa.core.ui.core.VerticalSpacer
+import com.houssem85.toa.core.ui.components.VerticalSpacer
 import com.houssem85.toa.core.ui.getString
 import com.houssem85.toa.core.ui.theme.TOATheme
 import com.houssem85.toa.login.domain.model.Credentials
