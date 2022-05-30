@@ -66,9 +66,9 @@ fun AddTaskContent(
             )
 
             TOADatePicker(
+                value = viewState.taskInput.scheduledDate,
                 modifier = Modifier.fillMaxWidth(),
-                onDateSelected = {
-                }
+                onDateSelected = onScheduledDateChanged
             )
 
             if (viewState is AddTaskViewState.SubmissionError) {

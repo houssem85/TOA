@@ -21,17 +21,21 @@ import com.houssem85.toa.core.ui.theme.TOATheme
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 /**
  * A custom composable what show a date picker when clicked
  * */
 @Composable
 fun TOADatePicker(
+    value: LocalDate,
     modifier: Modifier,
-    onDateSelected: (Long) -> Unit
+    onDateSelected: (LocalDate) -> Unit
 ) {
 
     val dialogState = rememberMaterialDialogState()
+
     MaterialDialog(
         dialogState = dialogState,
         buttons = {
@@ -39,8 +43,10 @@ fun TOADatePicker(
             negativeButton("Cancel")
         }
     ) {
-        datepicker { date ->
-            // Coming soon
+        datepicker(
+            initialDate = value
+        ) { date ->
+            onDateSelected(date)
         }
     }
 
@@ -58,13 +64,18 @@ fun TOADatePicker(
     ) {
         Text(
             modifier = Modifier.weight(1F),
-            text = "today"
+            text = value.toUIString()
         )
         Icon(
             imageVector = Icons.Default.DateRange,
             contentDescription = "Select Date"
         )
     }
+}
+
+private fun LocalDate.toUIString(): String {
+    val formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
+    return formatter.format(this)
 }
 
 @Preview(
@@ -80,6 +91,7 @@ private fun TOADatePickerPreview() {
     TOATheme {
         Surface {
             TOADatePicker(
+                LocalDate.now(),
                 modifier = Modifier.fillMaxWidth(),
                 onDateSelected = {
                 }
