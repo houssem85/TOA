@@ -18,7 +18,7 @@ fun TaskListScreen(
         viewState = viewState.value,
         onRescheduleClicked = {},
         onAddTaskClicked = {
-           navigator.navigate(AddTaskScreenDestination)
+            navigator.navigate(AddTaskScreenDestination)
         },
         onDoneClicked = {}
     )

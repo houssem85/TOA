@@ -6,7 +6,7 @@ import com.houssem85.toa.tasklist.domain.model.Task
 import com.houssem85.toa.tasklist.domain.repository.TaskListRepository
 import javax.inject.Inject
 
-class DemoTaskListRepository @Inject constructor(): TaskListRepository {
+class DemoTaskListRepository @Inject constructor() : TaskListRepository {
     override suspend fun fetchAllTasks(): Result<List<Task>> {
         val tasks = (1..10).map {
             Task(

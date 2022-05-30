@@ -14,12 +14,9 @@ fun AddTaskScreen(
     AddTaskContent(
         viewState = viewState.value,
         onDescriptionChanged = {
-
         }, onScheduledDateChanged = {
-
-        },
+    },
         onSubmitClicked = {
-
         }
     )
 }

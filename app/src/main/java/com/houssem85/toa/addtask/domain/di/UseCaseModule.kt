@@ -16,6 +16,6 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindAddTaskUseCase(
-        addTaskUseCase : ProdAddTaskUseCase,
+        addTaskUseCase: ProdAddTaskUseCase,
     ): AddTaskUseCase
 }

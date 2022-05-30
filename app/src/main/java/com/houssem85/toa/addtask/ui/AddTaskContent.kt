@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.houssem85.toa.addtask.domain.model.TaskInput
 import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.core.ui.components.PrimaryButton
+import com.houssem85.toa.core.ui.components.TOADatePicker
 import com.houssem85.toa.core.ui.components.TOATextField
 import com.houssem85.toa.core.ui.components.VerticalSpacer
 import com.houssem85.toa.core.ui.getString
@@ -37,11 +38,14 @@ fun AddTaskContent(
     onScheduledDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
 ) {
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             Text(
@@ -60,11 +64,11 @@ fun AddTaskContent(
                 style = MaterialTheme.typography.headlineLarge,
                 textAlign = TextAlign.Center
             )
-            TOATextField(
-                text = "Today",
-                onTextChanged = {},
-                labelText = "",
-                enabled = viewState.inputsEnabled
+
+            TOADatePicker(
+                modifier = Modifier.fillMaxWidth(),
+                onDateSelected = {
+                }
             )
 
             if (viewState is AddTaskViewState.SubmissionError) {
