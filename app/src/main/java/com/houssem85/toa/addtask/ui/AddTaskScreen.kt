@@ -13,8 +13,7 @@ fun AddTaskScreen(
     val viewState = viewModel.viewState.collectAsState()
     AddTaskContent(
         viewState = viewState.value,
-        onDescriptionChanged = {
-        },
+        onDescriptionChanged = viewModel::onTaskDescriptionChanged,
         onScheduledDateChanged = viewModel::onTaskScheduledDateChanged,
         onSubmitClicked = {
         }

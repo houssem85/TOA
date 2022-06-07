@@ -14,16 +14,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.R
+import com.houssem85.toa.addtask.ui.TaskDisplayModel
+import com.houssem85.toa.addtask.ui.toTaskDisplayModel
 import com.houssem85.toa.core.ui.components.TOATextButton
 import com.houssem85.toa.core.ui.theme.TOATheme
 import com.houssem85.toa.tasklist.domain.model.Task
+import java.time.LocalDate
 
 /**
  * this display a list item for a given task.
  * */
 @Composable
 fun TaskListItem(
-    task: Task,
+    task: TaskDisplayModel,
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit,
 ) {
@@ -79,10 +82,11 @@ private fun TaskText(text: String) {
 private fun TaskListItemPreview() {
     TOATheme {
         val task = Task(
-            description = "test description"
+            description = "test description",
+            LocalDate.now()
         )
         TaskListItem(
-            task,
+            task.toTaskDisplayModel(),
             onDoneClicked = {
             },
             onRescheduleClicked = {

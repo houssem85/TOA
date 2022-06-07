@@ -2,6 +2,7 @@ package com.houssem85.toa.tasklist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.houssem85.toa.addtask.ui.toTaskDisplayModel
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.core.di.IoDispatcher
 import com.houssem85.toa.core.ui.UIText
@@ -29,7 +30,11 @@ class TaskListViewModel @Inject constructor(
             val result = getAllTasksUseCase()
             _viewState.value = when (result) {
                 is Result.Success -> {
-                    TaskListViewState.Active(result.data)
+                    TaskListViewState.Active(
+                        result.data.map {
+                            it.toTaskDisplayModel()
+                        }
+                    )
                 }
                 is Result.Error -> {
                     TaskListViewState.Error(UIText.StringText("Something went wrong."))

@@ -1,13 +1,13 @@
 package com.houssem85.toa.tasklist.ui
 
+import com.houssem85.toa.addtask.ui.TaskDisplayModel
 import com.houssem85.toa.core.ui.UIText
-import com.houssem85.toa.tasklist.domain.model.Task
 
 sealed class TaskListViewState {
     object Loading : TaskListViewState()
 
     data class Active(
-        val tasks: List<Task>,
+        val tasks: List<TaskDisplayModel>,
     ) : TaskListViewState()
 
     data class Error(

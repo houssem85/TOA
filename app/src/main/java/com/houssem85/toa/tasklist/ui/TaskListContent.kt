@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.core.ui.theme.TOATheme
 import com.houssem85.toa.tasklist.domain.model.Task
+import java.time.LocalDate
 
 @Composable
 fun TaskListContent(
@@ -115,7 +116,8 @@ private fun AddTaskButton(onClick: () -> Unit) {
 fun TaskListContentPreview() {
     val tasks = (0..10).map {
         Task(
-            description = "task $it"
+            description = "task $it",
+            LocalDate.now()
         )
     }
     val viewState = TaskListViewState.Active(tasks)

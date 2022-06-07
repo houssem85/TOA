@@ -23,4 +23,12 @@ class AddTaskViewModel @Inject constructor(
         )
         _viewState.value = AddTaskViewState.Active(newInput)
     }
+
+    fun onTaskDescriptionChanged(newDescription: String) {
+        val currentInput = _viewState.value.taskInput
+        val newInput = currentInput.copy(
+            description = newDescription
+        )
+        _viewState.value = AddTaskViewState.Active(newInput)
+    }
 }

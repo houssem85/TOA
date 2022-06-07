@@ -8,6 +8,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Test
+import java.time.LocalDate
 
 @ExperimentalCoroutinesApi
 class TaskListViewModelTest {
@@ -22,7 +23,8 @@ class TaskListViewModelTest {
     fun testActiveState() {
         val tasks = (1..20).map {
             Task(
-                description = "task $it"
+                description = "task $it",
+                LocalDate.now()
             )
         }
 
