@@ -34,8 +34,6 @@ class LoginViewModel @Inject constructor(
         MutableStateFlow(Initial)
     val viewState: StateFlow<LoginViewState> = _viewState
 
-    val loginCompletedChannel = Channel<Unit>()
-
     fun emailChanged(value: String) {
         val currentCredentials = _viewState.value.credentials
         _viewState.value = Active(
@@ -84,7 +82,6 @@ class LoginViewModel @Inject constructor(
                     )
                 }
                 is LoginResult.Success -> {
-                    loginCompletedChannel.send(Unit)
                     LoginViewState.Completed
                 }
             }
