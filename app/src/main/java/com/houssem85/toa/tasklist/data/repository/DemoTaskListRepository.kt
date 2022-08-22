@@ -12,7 +12,7 @@ class DemoTaskListRepository @Inject constructor() : TaskListRepository {
         val tasks = (1..10).map {
             Task(
                 description = "task $it",
-                LocalDate.now()
+                scheduledDate = LocalDate.now()
             )
         }
         return Result.Success(tasks)

@@ -2,16 +2,18 @@ package com.houssem85.toa.tasklist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.houssem85.toa.addtask.ui.toTaskDisplayModel
+import com.houssem85.toa.addtask.ui.TaskDisplayModel
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.core.di.IoDispatcher
 import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.tasklist.domain.usecase.GetAllTasksUseCase
+import com.houssem85.toa.tasklist.domain.usecase.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 /**
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getAllTasksUseCase: GetAllTasksUseCase,
+    private val rescheduleTaskUseCase: RescheduleTaskUseCase,
     @IoDispatcher private val defaultDispatchers: CoroutineDispatcher,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow<TaskListViewState>(TaskListViewState.Loading)
@@ -32,7 +35,20 @@ class TaskListViewModel @Inject constructor(
                 is Result.Success -> {
                     TaskListViewState.Active(
                         result.data.map {
-                            it.toTaskDisplayModel()
+                            val friendlyDatePattern = "MMM dd, yyyy"
+                            val friendlyDateFormatter = DateTimeFormatter.ofPattern(friendlyDatePattern)
+                            TaskDisplayModel(
+                                description = it.description,
+                                scheduledDate = friendlyDateFormatter.format(it.scheduledDate),
+                                onTaskClicked = {
+                                    viewModelScope.launch(defaultDispatchers) {
+                                        rescheduleTaskUseCase(it.id)
+                                    }
+                                },
+                                onDoneClicked = {
+
+                                }
+                            )
                         }
                     )
                 }

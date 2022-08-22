@@ -28,16 +28,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.addtask.ui.TaskDisplayModel
-import com.houssem85.toa.addtask.ui.toTaskDisplayModel
 import com.houssem85.toa.core.ui.theme.TOATheme
-import com.houssem85.toa.tasklist.domain.model.Task
-import java.time.LocalDate
 
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
-    onRescheduleClicked: (TaskDisplayModel) -> Unit,
-    onDoneClicked: (TaskDisplayModel) -> Unit,
     onAddTaskClicked: () -> Unit,
 ) {
     Box(
@@ -62,8 +57,6 @@ fun TaskListContent(
                 TaskList(
                     modifier = Modifier.padding(paddingValues),
                     tasks = viewState.tasks,
-                    onRescheduleClicked = onRescheduleClicked,
-                    onDoneClicked = onDoneClicked,
                 )
             }
         }
@@ -117,21 +110,21 @@ private fun AddTaskButton(onClick: () -> Unit) {
 @Composable
 fun TaskListContentPreview() {
     val tasks = (0..10).map {
-        Task(
+        TaskDisplayModel(
             description = "task $it",
-            LocalDate.now()
+            scheduledDate = "scheduledDate",
+            onTaskClicked = {
+
+            },
+            onDoneClicked = {
+
+            }
         )
     }
-    val viewState = TaskListViewState.Active(tasks.map {
-        it.toTaskDisplayModel()
-    })
+    val viewState = TaskListViewState.Active(tasks)
     TOATheme {
         TaskListContent(
             viewState = viewState,
-            onRescheduleClicked = {
-            },
-            onDoneClicked = {
-            },
             onAddTaskClicked = {
             }
         )

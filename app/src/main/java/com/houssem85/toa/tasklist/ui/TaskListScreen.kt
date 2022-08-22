@@ -16,10 +16,8 @@ fun TaskListScreen(
     val viewState = viewModel.viewState.collectAsState()
     TaskListContent(
         viewState = viewState.value,
-        onRescheduleClicked = {},
         onAddTaskClicked = {
             navigator.navigate(AddTaskScreenDestination)
         },
-        onDoneClicked = {}
     )
 }

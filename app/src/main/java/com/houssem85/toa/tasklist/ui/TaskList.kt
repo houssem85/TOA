@@ -10,17 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.addtask.ui.TaskDisplayModel
-import com.houssem85.toa.addtask.ui.toTaskDisplayModel
 import com.houssem85.toa.core.ui.theme.TOATheme
-import com.houssem85.toa.tasklist.domain.model.Task
-import java.time.LocalDate
 
 @Composable
 fun TaskList(
     modifier: Modifier = Modifier,
     tasks: List<TaskDisplayModel>,
-    onRescheduleClicked: (TaskDisplayModel) -> Unit,
-    onDoneClicked: (TaskDisplayModel) -> Unit,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
@@ -30,12 +25,6 @@ fun TaskList(
         items(tasks) { task ->
             TaskListItem(
                 task = task,
-                onRescheduleClicked = {
-                    onRescheduleClicked(task)
-                },
-                onDoneClicked = {
-                    onDoneClicked(task)
-                }
             )
         }
     }
@@ -45,18 +34,20 @@ fun TaskList(
 @Composable
 fun TaskListPreview() {
     val tasks = (0..10).map {
-        Task(
+        TaskDisplayModel(
             description = "task $it",
-            LocalDate.now()
+            scheduledDate = "scheduledDate",
+            onTaskClicked = {
+
+            },
+            onDoneClicked = {
+
+            }
         )
     }
     TOATheme {
         TaskList(
-            tasks = tasks.map {
-                it.toTaskDisplayModel()
-            },
-            onRescheduleClicked = {},
-            onDoneClicked = {}
+            tasks = tasks,
         )
     }
 }

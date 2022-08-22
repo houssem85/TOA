@@ -15,20 +15,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.R
 import com.houssem85.toa.addtask.ui.TaskDisplayModel
-import com.houssem85.toa.addtask.ui.toTaskDisplayModel
 import com.houssem85.toa.core.ui.components.TOATextButton
 import com.houssem85.toa.core.ui.theme.TOATheme
-import com.houssem85.toa.tasklist.domain.model.Task
-import java.time.LocalDate
 
 /**
  * this display a list item for a given task.
  * */
 @Composable
 fun TaskListItem(
-    task: TaskDisplayModel,
-    onRescheduleClicked: () -> Unit,
-    onDoneClicked: () -> Unit,
+    task: TaskDisplayModel
 ) {
     Card {
         Column(
@@ -42,8 +37,10 @@ fun TaskListItem(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                RescheduleButton(onClick = onRescheduleClicked)
-                DoneButton(onClick = onDoneClicked)
+                RescheduleButton(onClick = task.onTaskClicked)
+                DoneButton(onClick = {
+
+                })
             }
         }
     }
@@ -81,16 +78,18 @@ private fun TaskText(text: String) {
 @Composable
 private fun TaskListItemPreview() {
     TOATheme {
-        val task = Task(
-            description = "test description",
-            LocalDate.now()
+        val task = TaskDisplayModel(
+            description = "description",
+            scheduledDate = "scheduledDate",
+            onTaskClicked = {
+
+            },
+            onDoneClicked = {
+
+            }
         )
         TaskListItem(
-            task.toTaskDisplayModel(),
-            onDoneClicked = {
-            },
-            onRescheduleClicked = {
-            }
+            task
         )
     }
 }
