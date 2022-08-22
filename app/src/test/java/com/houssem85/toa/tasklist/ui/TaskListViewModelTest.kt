@@ -31,8 +31,8 @@ class TaskListViewModelTest {
         testRobot.mockResult(Result.Success(tasks))
         testRobot.buildViewModel(standardTestDispatcher)
         testRobot.assertViewState(TaskListViewState.Loading)
-        //standardTestDispatcher.scheduler.runCurrent()
-        //testRobot.assertViewState(TaskListViewState.Active(tasks.map { it.toTaskDisplayModel() }))
+        // standardTestDispatcher.scheduler.runCurrent()
+        // testRobot.assertViewState(TaskListViewState.Active(tasks.map { it.toTaskDisplayModel() }))
     }
 
     @Test

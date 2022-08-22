@@ -8,6 +8,6 @@ import com.houssem85.toa.tasklist.domain.model.Task
 data class TaskDisplayModel(
     val description: String,
     val scheduledDate: String,
-    val onTaskClicked : () -> Unit,
-    val onDoneClicked : () -> Unit
+    val onTaskClicked: () -> Unit,
+    val onDoneClicked: () -> Unit
 )

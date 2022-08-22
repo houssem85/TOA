@@ -38,10 +38,8 @@ fun TaskListPreview() {
             description = "task $it",
             scheduledDate = "scheduledDate",
             onTaskClicked = {
-
             },
             onDoneClicked = {
-
             }
         )
     }

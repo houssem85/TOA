@@ -46,7 +46,6 @@ class TaskListViewModel @Inject constructor(
                                     }
                                 },
                                 onDoneClicked = {
-
                                 }
                             )
                         }

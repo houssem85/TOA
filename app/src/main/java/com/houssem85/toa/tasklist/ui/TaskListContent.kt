@@ -114,10 +114,8 @@ fun TaskListContentPreview() {
             description = "task $it",
             scheduledDate = "scheduledDate",
             onTaskClicked = {
-
             },
             onDoneClicked = {
-
             }
         )
     }

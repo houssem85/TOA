@@ -9,7 +9,7 @@ class FakeRescheduleTaskUseCase {
 
     val mock: RescheduleTaskUseCase = mockk()
 
-    fun mockRescheduleTaskResult(taskId : String,result: Result<Unit>) {
+    fun mockRescheduleTaskResult(taskId: String, result: Result<Unit>) {
         coEvery {
             mock(taskId)
         } returns result

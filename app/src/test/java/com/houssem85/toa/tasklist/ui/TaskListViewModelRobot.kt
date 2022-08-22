@@ -25,8 +25,8 @@ class TaskListViewModelRobot {
         fakeGetAllTasksUseCase.mockResult(result)
     }
 
-    fun mockRescheduleTaskResult(taskId : String,result: Result<Unit>) {
-        fakeRescheduleTaskUseCase.mockRescheduleTaskResult(taskId , result)
+    fun mockRescheduleTaskResult(taskId: String, result: Result<Unit>) {
+        fakeRescheduleTaskUseCase.mockRescheduleTaskResult(taskId, result)
     }
 
     fun assertViewState(expectedViewState: TaskListViewState) {

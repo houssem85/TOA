@@ -4,5 +4,5 @@ import com.houssem85.toa.core.data.Result
 
 interface RescheduleTaskUseCase {
 
-    suspend operator fun invoke(taskId : String) : Result<Unit>
+    suspend operator fun invoke(taskId: String): Result<Unit>
 }

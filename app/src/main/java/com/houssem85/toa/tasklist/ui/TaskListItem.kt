@@ -39,7 +39,6 @@ fun TaskListItem(
             ) {
                 RescheduleButton(onClick = task.onTaskClicked)
                 DoneButton(onClick = {
-
                 })
             }
         }
@@ -82,10 +81,8 @@ private fun TaskListItemPreview() {
             description = "description",
             scheduledDate = "scheduledDate",
             onTaskClicked = {
-
             },
             onDoneClicked = {
-
             }
         )
         TaskListItem(
