@@ -14,7 +14,6 @@ import com.houssem85.toa.login.ui.LoginViewState.Initial
 import com.houssem85.toa.login.ui.LoginViewState.Submitting
 import com.houssem85.toa.login.ui.LoginViewState.SubmittingError
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
