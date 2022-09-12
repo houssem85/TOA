@@ -6,12 +6,14 @@ import com.houssem85.toa.addtask.ui.TaskDisplayModel
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.core.di.IoDispatcher
 import com.houssem85.toa.core.ui.UIText
+import com.houssem85.toa.tasklist.domain.model.Task
 import com.houssem85.toa.tasklist.domain.usecase.GetAllTasksUseCase
 import com.houssem85.toa.tasklist.domain.usecase.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -30,31 +32,42 @@ class TaskListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(defaultDispatchers) {
-            val result = getAllTasksUseCase()
-            _viewState.value = when (result) {
-                is Result.Success -> {
-                    TaskListViewState.Active(
-                        result.data.map {
-                            val friendlyDatePattern = "MMM dd, yyyy"
-                            val friendlyDateFormatter = DateTimeFormatter.ofPattern(friendlyDatePattern)
-                            TaskDisplayModel(
-                                description = it.description,
-                                scheduledDate = friendlyDateFormatter.format(it.scheduledDate),
-                                onTaskClicked = {
-                                    viewModelScope.launch(defaultDispatchers) {
-                                        rescheduleTaskUseCase(it.id)
-                                    }
-                                },
-                                onDoneClicked = {
+            getAllTasksUseCase().collect { result ->
+                _viewState.value = when (result) {
+                    is Result.Success -> {
+                        TaskListViewState.Active(
+                            result.data.map {
+                                it.toTaskDisplayModel(
+                                    onTaskClicked = {
+                                        viewModelScope.launch(defaultDispatchers) {
+                                            rescheduleTaskUseCase(it.id)
+                                        }
+                                    }, onDoneClicked = {
                                 }
-                            )
-                        }
-                    )
-                }
-                is Result.Error -> {
-                    TaskListViewState.Error(UIText.StringText("Something went wrong."))
+                                )
+                            }
+                        )
+                    }
+                    is Result.Error -> {
+                        TaskListViewState.Error(UIText.StringText("Something went wrong."))
+                    }
                 }
             }
         }
     }
+}
+
+fun Task.toTaskDisplayModel(
+    onTaskClicked: () -> Unit = {},
+    onDoneClicked: () -> Unit = {},
+): TaskDisplayModel {
+    val friendlyDatePattern = "MMM dd, yyyy"
+    val friendlyDateFormatter =
+        DateTimeFormatter.ofPattern(friendlyDatePattern)
+    return TaskDisplayModel(
+        description = this.description,
+        scheduledDate = friendlyDateFormatter.format(this.scheduledDate),
+        onTaskClicked = onTaskClicked,
+        onDoneClicked = onDoneClicked
+    )
 }

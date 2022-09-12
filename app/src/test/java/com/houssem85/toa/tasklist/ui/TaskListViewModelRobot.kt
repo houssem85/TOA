@@ -6,6 +6,7 @@ import com.houssem85.toa.fakes.FakeGetAllTasksUseCase
 import com.houssem85.toa.fakes.FakeRescheduleTaskUseCase
 import com.houssem85.toa.tasklist.domain.model.Task
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 
 class TaskListViewModelRobot {
 
@@ -21,7 +22,7 @@ class TaskListViewModelRobot {
         )
     }
 
-    fun mockResult(result: Result<List<Task>>) {
+    fun mockResult(result: Flow<Result<List<Task>>>) {
         fakeGetAllTasksUseCase.mockResult(result)
     }
 

@@ -2,7 +2,8 @@ package com.houssem85.toa.tasklist.domain.usecase
 
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.tasklist.domain.model.Task
+import kotlinx.coroutines.flow.Flow
 
 interface GetAllTasksUseCase {
-    suspend operator fun invoke(): Result<List<Task>>
+    operator fun invoke(): Flow<Result<List<Task>>>
 }

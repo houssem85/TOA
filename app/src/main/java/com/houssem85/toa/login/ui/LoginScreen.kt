@@ -20,13 +20,13 @@ fun LoginScreen(
     val viewState = loginViewModel.viewState.collectAsState()
 
     LaunchedEffect(viewState.value) {
-        // if(viewState.value is LoginViewState.Completed){
-        navigator.navigate(TaskListScreenDestination) {
-            this.popUpTo(LoginScreenDestination.route) {
-                inclusive = true
+        if (viewState.value is LoginViewState.Completed) {
+            navigator.navigate(TaskListScreenDestination) {
+                this.popUpTo(LoginScreenDestination.route) {
+                    inclusive = true
+                }
             }
         }
-        //  }
     }
 
     LoginContent(

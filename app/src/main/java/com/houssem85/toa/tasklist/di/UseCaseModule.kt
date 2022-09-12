@@ -1,8 +1,8 @@
 package com.houssem85.toa.tasklist.di
 
-import com.houssem85.toa.tasklist.domain.usecase.DemoGetAllTasksUseCase
 import com.houssem85.toa.tasklist.domain.usecase.DemoRescheduleTaskUseCase
 import com.houssem85.toa.tasklist.domain.usecase.GetAllTasksUseCase
+import com.houssem85.toa.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import com.houssem85.toa.tasklist.domain.usecase.RescheduleTaskUseCase
 import dagger.Binds
 import dagger.Module
@@ -18,7 +18,7 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindGetAllTasksUseCase(
-        getAllTasksUseCase: DemoGetAllTasksUseCase,
+        getAllTasksUseCase: ProdGetAllTasksUseCase,
     ): GetAllTasksUseCase
 
     @Binds

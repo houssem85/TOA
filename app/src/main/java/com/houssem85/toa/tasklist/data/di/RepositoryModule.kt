@@ -1,6 +1,6 @@
 package com.houssem85.toa.tasklist.data.di
 
-import com.houssem85.toa.tasklist.data.repository.DemoTaskListRepository
+import com.houssem85.toa.tasklist.data.repository.ProdTaskListRepository
 import com.houssem85.toa.tasklist.domain.repository.TaskListRepository
 import dagger.Binds
 import dagger.Module
@@ -13,6 +13,6 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindTaskListRepository(
-        taskListRepository: DemoTaskListRepository,
+        taskListRepository: ProdTaskListRepository,
     ): TaskListRepository
 }

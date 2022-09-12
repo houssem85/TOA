@@ -4,6 +4,7 @@ import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.tasklist.domain.model.Task
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -21,23 +22,23 @@ class TaskListViewModelTest {
 
     @Test
     fun testActiveState() {
-        val tasks = (1..20).map {
+        val tasks = (1..1).map {
             Task(
                 description = "task $it",
                 scheduledDate = LocalDate.now()
             )
         }
 
-        testRobot.mockResult(Result.Success(tasks))
+        testRobot.mockResult(flowOf(Result.Success(tasks)))
         testRobot.buildViewModel(standardTestDispatcher)
         testRobot.assertViewState(TaskListViewState.Loading)
-        // standardTestDispatcher.scheduler.runCurrent()
-        // testRobot.assertViewState(TaskListViewState.Active(tasks.map { it.toTaskDisplayModel() }))
+        standardTestDispatcher.scheduler.runCurrent()
+        testRobot.assertViewState(TaskListViewState.Active(tasks.map { it.toTaskDisplayModel() }))
     }
 
     @Test
     fun testErrorState() {
-        testRobot.mockResult(Result.Error(Throwable("Something went wrong.")))
+        testRobot.mockResult(flowOf(Result.Error(Throwable("Something went wrong."))))
         testRobot.buildViewModel(unconfinedTestDispatcher)
         testRobot.assertViewState(TaskListViewState.Error(UIText.StringText("Something went wrong.")))
     }

@@ -89,4 +89,8 @@ dependencies {
     ksp "io.github.raamcosta.compose-destinations:ksp:$rootProject.ext.versions.composeDestination"
     implementation "androidx.navigation:navigation-compose:$rootProject.ext.versions.navigationComponent"
     implementation "io.github.vanpra.compose-material-dialogs:datetime:0.7.1"
+    implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
+    implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
+    kapt  "androidx.room:room-compiler:$rootProject.ext.versions.room"
+    testImplementation "android.arch.core:core-testing:1.1.1"
 }

@@ -2,9 +2,10 @@ package com.houssem85.toa.tasklist.domain.repository
 
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.tasklist.domain.model.Task
+import kotlinx.coroutines.flow.Flow
 
 interface TaskListRepository {
-    suspend fun fetchAllTasks(): Result<List<Task>>
+    fun fetchAllTasks(): Flow<Result<List<Task>>>
 
     /**
      * Add a new [task] and return a [Result] that wrap success or failure.
