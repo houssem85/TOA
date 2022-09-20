@@ -2,6 +2,7 @@ package com.houssem85.toa.addtask.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.houssem85.toa.R
 import com.houssem85.toa.addtask.domain.model.AddTaskResult
 import com.houssem85.toa.addtask.domain.usecase.AddTaskUseCase
 import com.houssem85.toa.core.di.IoDispatcher
@@ -29,7 +30,9 @@ class AddTaskViewModel @Inject constructor(
         val newInput = currentInput.copy(
             scheduledDate = newDate
         )
-        _viewState.value = AddTaskViewState.Active(newInput)
+        _viewState.value = AddTaskViewState.Active(
+            taskInput = newInput,
+        )
     }
 
     fun onTaskDescriptionChanged(newDescription: String) {
@@ -37,7 +40,9 @@ class AddTaskViewModel @Inject constructor(
         val newInput = currentInput.copy(
             description = newDescription
         )
-        _viewState.value = AddTaskViewState.Active(newInput)
+        _viewState.value = AddTaskViewState.Active(
+            taskInput = newInput,
+        )
     }
 
     fun onSubmitButtonClicked() {
@@ -46,8 +51,22 @@ class AddTaskViewModel @Inject constructor(
             scheduledDate = _viewState.value.taskInput.scheduledDate
         )
         viewModelScope.launch(context = dispatcher) {
-            _viewState.value = when (addTaskUseCase(task)) {
-                is AddTaskResult.Failure -> {
+            val result = addTaskUseCase(task)
+            _viewState.value = when (result) {
+                is AddTaskResult.Failure.InvalidInput -> {
+                    AddTaskViewState.Active(
+                        taskInput = _viewState.value.taskInput,
+                        descriptionInputErrorMessage = UIText.ResourceText(R.string.err_empty_task_description)
+                            .takeIf {
+                                result.emptyDescription
+                            },
+                        scheduledDateInputErrorMessage = UIText.ResourceText(R.string.err_invalid_scheduled_date)
+                            .takeIf {
+                                result.scheduledDateInPast
+                            },
+                    )
+                }
+                is AddTaskResult.Failure.Unknown -> {
                     AddTaskViewState.SubmissionError(
                         _viewState.value.taskInput,
                         UIText.StringText(

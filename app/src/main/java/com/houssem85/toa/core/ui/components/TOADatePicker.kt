@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter
 fun TOADatePicker(
     value: LocalDate,
     modifier: Modifier,
-    onDateSelected: (LocalDate) -> Unit
+    onDateSelected: (LocalDate) -> Unit,
 ) {
 
     val dialogState = rememberMaterialDialogState()
