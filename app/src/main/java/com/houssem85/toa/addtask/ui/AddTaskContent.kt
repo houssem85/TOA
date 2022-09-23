@@ -57,7 +57,11 @@ fun AddTaskContent(
                 text = viewState.taskInput.description,
                 onTextChanged = onDescriptionChanged,
                 labelText = "",
-                enabled = viewState.inputsEnabled
+                enabled = viewState.inputsEnabled,
+                errorMessage = (viewState as? AddTaskViewState.Active)
+                    ?.descriptionInputErrorMessage
+                    ?.getString(
+                        LocalContext.current)
             )
             Text(
                 text = "when would you like to do it?",
