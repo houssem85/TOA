@@ -61,7 +61,8 @@ fun AddTaskContent(
                 errorMessage = (viewState as? AddTaskViewState.Active)
                     ?.descriptionInputErrorMessage
                     ?.getString(
-                        LocalContext.current)
+                        LocalContext.current
+                    )
             )
             Text(
                 text = "when would you like to do it?",
@@ -72,7 +73,12 @@ fun AddTaskContent(
             TOADatePicker(
                 value = viewState.taskInput.scheduledDate,
                 modifier = Modifier.fillMaxWidth(),
-                onDateSelected = onScheduledDateChanged
+                onDateSelected = onScheduledDateChanged,
+                errorMessage = (viewState as? AddTaskViewState.Active)
+                    ?.scheduledDateInputErrorMessage
+                    ?.getString(
+                        LocalContext.current
+                    )
             )
 
             if (viewState is AddTaskViewState.SubmissionError) {

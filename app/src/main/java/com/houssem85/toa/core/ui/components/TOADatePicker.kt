@@ -3,6 +3,7 @@ package com.houssem85.toa.core.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ fun TOADatePicker(
     value: LocalDate,
     modifier: Modifier,
     onDateSelected: (LocalDate) -> Unit,
+    errorMessage: String? = null,
 ) {
 
     val dialogState = rememberMaterialDialogState()
@@ -49,27 +51,39 @@ fun TOADatePicker(
             onDateSelected(date)
         }
     }
-
-    Row(
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onBackground,
-                shape = RoundedCornerShape(50)
+    Column {
+        Row(
+            modifier = modifier
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    shape = RoundedCornerShape(50)
+                )
+                .padding(12.dp)
+                .clickable {
+                    dialogState.show()
+                }
+        ) {
+            Text(
+                modifier = Modifier.weight(1F),
+                text = value.toUIString()
             )
-            .padding(12.dp)
-            .clickable {
-                dialogState.show()
-            }
-    ) {
-        Text(
-            modifier = Modifier.weight(1F),
-            text = value.toUIString()
-        )
-        Icon(
-            imageVector = Icons.Default.DateRange,
-            contentDescription = "Select Date"
-        )
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "Select Date"
+            )
+        }
+
+        if (errorMessage != null) {
+            androidx.compose.material.Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(
+                    top = 4.dp,
+                    start = 16.dp,
+                )
+            )
+        }
     }
 }
 
@@ -94,7 +108,8 @@ private fun TOADatePickerPreview() {
                 LocalDate.now(),
                 modifier = Modifier.fillMaxWidth(),
                 onDateSelected = {
-                }
+                },
+                "error message"
             )
         }
     }
