@@ -1,3 +1,5 @@
+@file:Suppress("LongMethod")
+
 package com.houssem85.toa.addtask.ui
 
 import android.content.res.Configuration

@@ -91,6 +91,10 @@ dependencies {
     implementation "io.github.vanpra.compose-material-dialogs:datetime:0.7.1"
     implementation "androidx.room:room-runtime:$rootProject.ext.versions.room"
     implementation "androidx.room:room-ktx:$rootProject.ext.versions.room"
-    kapt  "androidx.room:room-compiler:$rootProject.ext.versions.room"
+    kapt "androidx.room:room-compiler:$rootProject.ext.versions.room"
     testImplementation "android.arch.core:core-testing:1.1.1"
+    // Test rules and transitive dependencies:
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+    // Needed for createComposeRule, but not createAndroidComposeRule:
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
 }
