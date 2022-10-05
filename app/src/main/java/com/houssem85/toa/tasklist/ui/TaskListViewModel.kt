@@ -15,8 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMap
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -44,7 +42,7 @@ class TaskListViewModel @Inject constructor(
         }.distinctUntilChanged()
             .onEach { date ->
                 _viewState.value = _viewState.value.copy(showLoading = true)
-            }.flatMapConcat { date ->
+            }.flatMapLatest { date ->
                 getTasksForDateUseCase(date)
             }.onEach { result ->
                 _viewState.value = when (result) {
@@ -56,7 +54,7 @@ class TaskListViewModel @Inject constructor(
                                         rescheduleTaskUseCase(it.id)
                                     }
                                 }, onDoneClicked = {
-                                }
+                            }
                             )
                         }
                         _viewState.value.copy(

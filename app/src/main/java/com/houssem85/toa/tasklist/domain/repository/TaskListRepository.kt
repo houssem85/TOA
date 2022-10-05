@@ -9,7 +9,6 @@ typealias TaskListResult = Result<List<Task>>
 
 interface TaskListRepository {
 
-
     fun fetchAllTasks(): Flow<TaskListResult>
 
     /**

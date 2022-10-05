@@ -1,13 +1,12 @@
 package com.houssem85.toa.tasklist.ui
 
-
 import com.houssem85.toa.MainDispatcherRule
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.tasklist.domain.model.Task
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -22,8 +21,8 @@ class TaskListViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun testActiveState() = runTest {
-        /*
+    fun testGetTasksForDate() = runTest {
+
         val testDispatcher = StandardTestDispatcher()
 
         val today = LocalDate.now()
@@ -44,30 +43,41 @@ class TaskListViewModelTest {
         testRobot.mockResult(today, flowOf(Result.Success(todayTasks)))
         testRobot.mockResult(tomorrow, flowOf(Result.Success(tomorrowTasks)))
 
-        val expectedStates = listOf(
-            TaskListViewState(
-                showLoading = true,
-                selectedDate = today,
-            ),
-            TaskListViewState(
-                showLoading = true,
-                selectedDate = tomorrow,
-                tasks = null
-            ),
-            TaskListViewState(
-                showLoading = false,
-                selectedDate = tomorrow,
-                tasks = tomorrowTasks.map { it.toTaskDisplayModel() }
+        testRobot.buildViewModel(testDispatcher)
+
+        testRobot.assertViewStatesAfterAction(
+            action = {
+                advanceUntilIdle()
+                testRobot.clickNextButton()
+                advanceUntilIdle()
+            },
+            expectedViewStates = listOf(
+                TaskListViewState(
+                    showLoading = true,
+                    selectedDate = today
+                ),
+                TaskListViewState(
+                    showLoading = false,
+                    selectedDate = today,
+                    tasks = todayTasks.map { it.toTaskDisplayModel { } }
+                ),
+                TaskListViewState(
+                    showLoading = false,
+                    selectedDate = tomorrow,
+                    tasks = todayTasks.map { it.toTaskDisplayModel { } }
+                ),
+                TaskListViewState(
+                    showLoading = true,
+                    selectedDate = tomorrow,
+                    tasks = todayTasks.map { it.toTaskDisplayModel { } }
+                ),
+                TaskListViewState(
+                    showLoading = false,
+                    selectedDate = tomorrow,
+                    tasks = tomorrowTasks.map { it.toTaskDisplayModel { } }
+                )
             )
         )
-
-        testRobot.buildViewModel(testDispatcher)
-        testRobot.clickNextButton()
-        testRobot.assertViewState(TaskListViewState(
-            showLoading = true,
-            selectedDate = tomorrow,
-            tasks = null
-        ))*/
     }
 
     @Test
