@@ -13,7 +13,6 @@ import java.time.LocalDate
 class AddTaskViewModelTest {
 
     private lateinit var addTaskViewModelRobot: AddTaskViewModelRobot
-    private var testCoroutineDispatcher = UnconfinedTestDispatcher()
 
     @Before
     fun setup() {
@@ -22,13 +21,14 @@ class AddTaskViewModelTest {
 
     @Test
     fun textSubmitWithEmptyDescription() {
+        val testDispatcher = UnconfinedTestDispatcher()
         val description = ""
         val scheduledDate = LocalDate.now()
         val task = Task(
             description = description,
             scheduledDate = scheduledDate,
         )
-        addTaskViewModelRobot.buildViewModel(testCoroutineDispatcher)
+        addTaskViewModelRobot.buildViewModel(testDispatcher)
         addTaskViewModelRobot.mockAddTaskResultForTask(
             task,
             AddTaskResult.Failure.InvalidInput(

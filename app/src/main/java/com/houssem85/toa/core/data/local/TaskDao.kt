@@ -19,4 +19,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM task")
     fun getAllTasks(): Flow<List<PersistableTask>>
+
+    @Query("SELECT * FROM task WHERE scheduledDate = :date")
+    fun getTasksForDate(date: String): Flow<List<PersistableTask>>
 }

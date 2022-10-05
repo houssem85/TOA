@@ -13,4 +13,6 @@
     <string name="reschedule">RESCHEDULE</string>
     <string name="err_empty_task_description">Please enter a description.</string>
     <string name="err_invalid_scheduled_date">Please select a date today ou in the future.</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>

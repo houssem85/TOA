@@ -3,6 +3,7 @@ package com.houssem85.toa.login.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.houssem85.toa.R
+import com.houssem85.toa.core.di.IoDispatcher
 import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.login.domain.model.Credentials
 import com.houssem85.toa.login.domain.model.Email
@@ -14,6 +15,8 @@ import com.houssem85.toa.login.ui.LoginViewState.Initial
 import com.houssem85.toa.login.ui.LoginViewState.Submitting
 import com.houssem85.toa.login.ui.LoginViewState.SubmittingError
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,6 +30,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val credentialsLoginUseCase: CredentialsLoginUseCase,
+    @IoDispatcher val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<LoginViewState> =
@@ -57,7 +61,7 @@ class LoginViewModel @Inject constructor(
 
     fun loginButtonClicked() {
         val currentCredentials = _viewState.value.credentials
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineDispatcher) {
             _viewState.value = Submitting(
                 credentials = currentCredentials
             )

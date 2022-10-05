@@ -24,34 +24,35 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.houssem85.toa.addtask.ui.TaskDisplayModel
+import com.houssem85.toa.core.ui.getString
 import com.houssem85.toa.core.ui.theme.TOATheme
 
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
     onAddTaskClicked: () -> Unit,
+    onNextDateClicked: () -> Unit,
+    onPreviousDateClicked: () -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        if (viewState is TaskListViewState.Loading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center)
-            )
-        }
-        if (viewState is TaskListViewState.Active) {
+        if (viewState.tasks != null) {
             Scaffold(
                 floatingActionButton = {
                     AddTaskButton(onAddTaskClicked)
                 },
                 topBar = {
-                    TaskListToolbar()
+                    TaskListToolbar(
+                        onRightButtonClicked = onNextDateClicked,
+                        onLeftButtonClicked = onPreviousDateClicked,
+                        title = viewState.selectedDateString.getString(LocalContext.current)
+                    )
                 }
             ) { paddingValues ->
                 TaskList(
@@ -60,11 +61,23 @@ fun TaskListContent(
                 )
             }
         }
+
+        if (viewState.showLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center)
+            )
+        }
     }
 }
 
 @Composable
-private fun TaskListToolbar() {
+private fun TaskListToolbar(
+    onRightButtonClicked: () -> Unit,
+    onLeftButtonClicked: () -> Unit,
+    title: String,
+) {
     Surface(
         color = MaterialTheme.colorScheme.primary
     ) {
@@ -72,7 +85,7 @@ private fun TaskListToolbar() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.height(84.dp)
         ) {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onLeftButtonClicked) {
                 Icon(
                     Icons.Default.KeyboardArrowLeft,
                     contentDescription = "TODO",
@@ -80,12 +93,12 @@ private fun TaskListToolbar() {
                 )
             }
             Text(
-                text = "Today",
+                text = title,
                 modifier = Modifier.weight(1F),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium
             )
-            IconButton(onClick = {}) {
+            IconButton(onClick = onRightButtonClicked) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,
                     contentDescription = "TODO",
@@ -119,12 +132,14 @@ fun TaskListContentPreview() {
             }
         )
     }
-    val viewState = TaskListViewState.Active(tasks)
+    val viewState = TaskListViewState(tasks = tasks, showLoading = false)
     TOATheme {
         TaskListContent(
             viewState = viewState,
             onAddTaskClicked = {
-            }
+            },
+            onNextDateClicked = {},
+            onPreviousDateClicked = {}
         )
     }
 }

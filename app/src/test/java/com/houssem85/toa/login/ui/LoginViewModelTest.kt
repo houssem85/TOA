@@ -1,6 +1,6 @@
 package com.houssem85.toa.login.ui
 
-import com.houssem85.toa.CoroutinesTestRule
+import com.houssem85.toa.MainDispatcherRule
 import com.houssem85.toa.R
 import com.houssem85.toa.core.ui.UIText
 import com.houssem85.toa.login.domain.model.Credentials
@@ -8,7 +8,9 @@ import com.houssem85.toa.login.domain.model.Email
 import com.houssem85.toa.login.domain.model.LoginResult
 import com.houssem85.toa.login.domain.model.Password
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,7 +21,7 @@ class LoginViewModelTest {
     private lateinit var testRobot: LoginViewModelRobot
 
     @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Before
     fun setUp() {
@@ -27,7 +29,8 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun testUpdateCredentials() = runBlockingTest {
+    fun testUpdateCredentials() = runTest {
+        val standardTestDispatcher = StandardTestDispatcher()
         val testEmail = "test@toa.com"
         val testPassword = "0000"
 
@@ -50,7 +53,7 @@ class LoginViewModelTest {
             emailPasswordEnteredState
         )
 
-        testRobot.buildViewModel()
+        testRobot.buildViewModel(standardTestDispatcher)
         testRobot.assertViewStatesAfterAction(
             action = {
                 testRobot.enterEmail(testEmail)
@@ -61,7 +64,9 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun testSubmitInvalidCredentials() = runBlockingTest {
+    fun testSubmitInvalidCredentials() = runTest {
+        val testDispatcher = StandardTestDispatcher()
+
         val testEmail = "wrong@toa.com"
         val testPassword = "0000"
 
@@ -90,14 +95,7 @@ class LoginViewModelTest {
             ),
             UIText.ResourceText(R.string.err_invalid_credentials),
         )
-        val expectedViewStates = listOf(
-            initialState,
-            emailEnteredState,
-            passwordEmailEnteredState,
-            submittingState,
-            invalidCredentialsState,
-        )
-        testRobot.buildViewModel()
+
         testRobot.mockLoginResultForCredentials(
             Credentials(
                 email = Email(testEmail),
@@ -105,18 +103,26 @@ class LoginViewModelTest {
             ),
             LoginResult.Failure.InvalidCredentials
         )
+
+        testRobot.buildViewModel(testDispatcher)
+        testRobot.assertViewState(initialState)
+        testRobot.enterEmail(testEmail)
+        testRobot.assertViewState(emailEnteredState)
+        testRobot.enterPassword(testPassword)
+        testRobot.assertViewState(passwordEmailEnteredState)
+
         testRobot.assertViewStatesAfterAction(
             action = {
-                testRobot.enterEmail(testEmail)
-                testRobot.enterPassword(testPassword)
                 testRobot.clickLoginButton()
+                advanceUntilIdle()
             },
-            expectedViewStates = expectedViewStates,
+            listOf(passwordEmailEnteredState, submittingState, invalidCredentialsState)
         )
     }
 
     @Test
-    fun testUnknownLoginFailure() = runBlockingTest {
+    fun testUnknownLoginFailure() = runTest {
+        val standardTestDispatcher = StandardTestDispatcher()
         val testEmail = "wrong@toa.com"
         val testPassword = "0000"
 
@@ -152,7 +158,7 @@ class LoginViewModelTest {
             submittingState,
             unknownErrorState,
         )
-        testRobot.buildViewModel()
+        testRobot.buildViewModel(standardTestDispatcher)
         testRobot.mockLoginResultForCredentials(
             Credentials(
                 email = Email(testEmail),
@@ -165,13 +171,15 @@ class LoginViewModelTest {
                 testRobot.enterEmail(testEmail)
                 testRobot.enterPassword(testPassword)
                 testRobot.clickLoginButton()
+                advanceUntilIdle()
             },
             expectedViewStates = expectedViewStates,
         )
     }
 
     @Test
-    fun testSubmitWithoutCredentials() = runBlockingTest {
+    fun testSubmitWithoutCredentials() = runTest {
+        val standardTestDispatcher = StandardTestDispatcher()
         val testEmail = ""
         val testPassword = ""
 
@@ -207,10 +215,11 @@ class LoginViewModelTest {
                 emptyPassword = true,
             )
         )
-        testRobot.buildViewModel()
+        testRobot.buildViewModel(standardTestDispatcher)
         testRobot.assertViewStatesAfterAction(
             action = {
                 testRobot.clickLoginButton()
+                advanceUntilIdle()
             },
             expectedViewStates = expectedViewStates
         )

@@ -2,7 +2,9 @@ package com.houssem85.toa.tasklist.di
 
 import com.houssem85.toa.tasklist.domain.usecase.DemoRescheduleTaskUseCase
 import com.houssem85.toa.tasklist.domain.usecase.GetAllTasksUseCase
+import com.houssem85.toa.tasklist.domain.usecase.GetTasksForDateUseCase
 import com.houssem85.toa.tasklist.domain.usecase.ProdGetAllTasksUseCase
+import com.houssem85.toa.tasklist.domain.usecase.ProdGetTasksForDateUseCase
 import com.houssem85.toa.tasklist.domain.usecase.RescheduleTaskUseCase
 import dagger.Binds
 import dagger.Module
@@ -25,4 +27,9 @@ abstract class UseCaseModule {
     abstract fun bindRescheduleTaskUseCase(
         rescheduleTaskUseCase: DemoRescheduleTaskUseCase,
     ): RescheduleTaskUseCase
+
+    @Binds
+    abstract fun bindGetTasksForDateUseCase(
+        prodGetTasksForDateUseCase: ProdGetTasksForDateUseCase,
+    ): GetTasksForDateUseCase
 }

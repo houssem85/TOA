@@ -5,26 +5,28 @@ import com.google.common.truth.Truth.assertThat
 import com.houssem85.toa.fakes.FakeCredentialsLoginUseCase
 import com.houssem85.toa.login.domain.model.Credentials
 import com.houssem85.toa.login.domain.model.LoginResult
+import kotlinx.coroutines.CoroutineDispatcher
 
 class LoginViewModelRobot {
 
     private val credentialsLoginUseCase = FakeCredentialsLoginUseCase()
     private lateinit var viewModel: LoginViewModel
 
-    fun buildViewModel() {
+    fun buildViewModel(coroutineDispatcher: CoroutineDispatcher) {
         viewModel = LoginViewModel(
             credentialsLoginUseCase = credentialsLoginUseCase.mock,
+            coroutineDispatcher = coroutineDispatcher
         )
     }
 
     fun enterEmail(
-        email: String
+        email: String,
     ) = apply {
         viewModel.emailChanged(email)
     }
 
     fun enterPassword(
-        password: String
+        password: String,
     ) = apply {
         viewModel.passwordChanged(password)
     }
@@ -39,15 +41,22 @@ class LoginViewModelRobot {
 
     suspend fun assertViewStatesAfterAction(
         action: LoginViewModelRobot.() -> Unit,
-        expectedViewStates: List<LoginViewState>
+        expectedViewStates: List<LoginViewState>,
     ) {
         viewModel.viewState.test {
             action()
             for (state in expectedViewStates) {
-                assertThat(awaitItem()).isEqualTo(state)
+                val awaitItem = awaitItem()
+                assertThat(awaitItem).isEqualTo(state)
             }
             this.cancel()
         }
+    }
+
+    fun assertViewState(
+        expectedViewState: LoginViewState,
+    ) {
+        assertThat(viewModel.viewState.value).isEqualTo(expectedViewState)
     }
 
     fun mockLoginResultForCredentials(credentials: Credentials, loginResult: LoginResult) {

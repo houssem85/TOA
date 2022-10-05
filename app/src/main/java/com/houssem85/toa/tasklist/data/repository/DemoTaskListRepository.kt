@@ -4,6 +4,7 @@ package com.houssem85.toa.tasklist.data.repository
 import com.houssem85.toa.core.data.Result
 import com.houssem85.toa.tasklist.domain.model.Task
 import com.houssem85.toa.tasklist.domain.repository.TaskListRepository
+import com.houssem85.toa.tasklist.domain.repository.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
@@ -19,6 +20,10 @@ class DemoTaskListRepository @Inject constructor() : TaskListRepository {
     }.toMutableList()
 
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
+        return flowOf(Result.Success(tasks))
+    }
+
+    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
         return flowOf(Result.Success(tasks))
     }
 
